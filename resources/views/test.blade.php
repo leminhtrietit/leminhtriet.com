@@ -87,8 +87,74 @@
 
     <!-- ======================= 2. CONTENT SECTION (LIQUID GLASS STYLE) ======================= -->
     <main class="w-full">
-    <div id="app-container" style="max-width: 1280px; margin-left: auto; margin-right: auto; padding: 2rem 1rem; width: 100%;">
-        <div id="main-content-area" style="background-color: white; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); min-height: 100vh;">
+            <div class="max-w-6xl mx-auto px-6 py-12">
+        <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-lg shadow-lg border border-white/20">
+
+ <div id="app-container" style="max-width: 1280px; margin-left: auto; margin-right: auto; padding: 2rem 1rem; width: 100%;">
+        <div id="main-content-area" style="padding: 2rem; border-radius: 0.5rem; min-height: 100vh;">
+            <!-- Internal styles for glassmorphism and specific element behaviors -->
+            <style>
+                .glass-background {
+                    background-color: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(8px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+                }
+                .glass-card {
+                    background-color: rgba(255, 255, 255, 0.4);
+                    backdrop-filter: blur(5px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+                    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+                }
+                .glass-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+                    background-color: rgba(255, 255, 255, 0.6);
+                }
+
+                .ai-gemini-row, .ai-chatgpt-row, .ai-notebooklm-row {
+                    transition: filter 0.3s ease-out;
+                }
+                .ai-gemini-row { background-color: rgba(230, 243, 230, 0.7); }
+                .ai-chatgpt-row { background-color: rgba(230, 240, 248, 0.7); }
+                .ai-notebooklm-row { background-color: rgba(255, 251, 230, 0.7); }
+                .ai-gemini-row:hover, .ai-chatgpt-row:hover, .ai-notebooklm-row:hover {
+                    filter: brightness(0.95);
+                }
+
+                .scroll-y-container {
+                    height: 500px;
+                    overflow-y: auto;
+                    border: 1px solid #D1D5DB;
+                    padding: 1rem;
+                    border-radius: 0.5rem;
+                    background-color: #F8F7F4;
+                }
+
+                .chart-container {
+                    position: relative;
+                    height: 300px;
+                    width: 100%;
+                    max-width: 300px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                @media (min-width: 768px) {
+                    .chart-container {
+                        height: 350px;
+                        max-width: 350px;
+                    }
+                }
+                /* New highlight colors for prompt components */
+                .highlight-role-context { color: #3498DB; font-weight: 600; }
+                .highlight-input-info { color: #E67E22; font-weight: 600; }
+                .highlight-output-req { color: #27AE60; font-weight: 600; }
+                .highlight-knowledge-limit { color: #9B59B6; font-weight: 600; }
+                .highlight-task-assign { color: #E74C3C; font-weight: 600; }
+                .highlight-note-breakdown { color: #1ABC9C; font-weight: 600; }
+                .highlight-note-example { color: #F39C12; font-weight: 600; }
+            </style>
 
             <!-- Chapter Selection Grid -->
             <div id="chapter-selection-grid" class="tab-pane" style="display: block;">
@@ -97,35 +163,35 @@
                     Khám phá cách tối ưu hóa hiệu suất làm việc, tăng cường sáng tạo và giải quyết vấn đề hiệu quả bằng cách tận dụng sức mạnh của Trí tuệ Nhân tạo. Chọn một chương để bắt đầu hành trình của bạn!
                 </p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-                    <button class="chapter-grid-button" data-tab-target="introduction" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="introduction" style="padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #739072; text-align: left; cursor: pointer; display: block; width: 100%;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">🏠 Giới Thiệu Khóa Học</h3>
                         <p style="color: #4A5568;">Tổng quan, mục tiêu, đối tượng và yêu cầu khóa học.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="course-structure" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="course-structure" style="padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #739072; text-align: left; cursor: pointer; display: block; width: 100%;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">📊 Cấu Trúc & Thời Lượng</h3>
                         <p style="color: #4A5568;">Phân bổ thời gian và tổng quan các chương.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="chapter1" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="chapter1" style="padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #739072; text-align: left; cursor: pointer; display: block; width: 100%;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">📚 Chương 1: Tổng Quan AI & Nền Tảng</h3>
                         <p style="color: #4A5568;">Giới thiệu AI, công cụ phổ biến & cách lựa chọn.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="chapter2-prompt" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="chapter2-prompt" style="padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #739072; text-align: left; cursor: pointer; display: block; width: 100%;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">✍️ Chương 2: Nghệ Thuật Tối Ưu Prompt</h3>
                         <p style="color: #4A5568;">Kỹ thuật viết prompt hiệu quả với ví dụ minh họa.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="chapter3" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="chapter3" style="padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #739072; text-align: left; cursor: pointer; display: block; width: 100%;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">♊ Chương 3: Khai Thác Gemini</h3>
                         <p style="color: #4A5568;">Ứng dụng Gemini trong công việc và sáng tạo.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="chapter4" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="chapter4" style="padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #739072; text-align: left; cursor: pointer; display: block; width: 100%;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">💬 Chương 4: Ứng Dụng ChatGPT</h3>
                         <p style="color: #4A5568;">Sử dụng ChatGPT cho phân tích dữ liệu và cuộc sống.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="chapter5" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="chapter5" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">💻 Chương 5: AI Chuyên Biệt & No-code</h3>
                         <p style="color: #4A5568;">Tìm hiểu NotebookLM và lập trình không cần mã.</p>
                     </button>
-                    <button class="chapter-grid-button" data-tab-target="resources" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
+                    <button class="chapter-grid-button glass-card" data-tab-target="resources" style="padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); border-left: 4px solid #739072; text-align: left; background-color: #F8F7F4; border: 1px solid #D1D5DB; cursor: pointer;">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #4F6F52;">🗂️ Tài liệu & Tài nguyên</h3>
                         <p style="color: #4A5568;">Các tài liệu bổ trợ và công cụ liên quan.</p>
                     </button>
@@ -272,13 +338,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #E6F3E6;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 243, 230, 0.7);">
                                     <td rowspan="3" style="padding: 0.75rem 1rem; color: #374151; font-weight: 500; white-space: nowrap;">Google Gemini</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Miễn phí</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Gói cá nhân, sử dụng cơ bản. Truy cập mô hình Gemini Pro.</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">Miễn phí</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #E6F3E6;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 243, 230, 0.7);">
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Pro (Google AI Pro)</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
                                         <ul style="list-style-type: disc; list-style-position: inside; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
@@ -291,7 +357,7 @@
                                     </td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">489.000₫/tháng<br>(miễn phí tháng đầu)</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #E6F3E6;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 243, 230, 0.7);">
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Ultra (Google AI Ultra)</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
                                         <ul style="list-style-type: disc; list-style-position: inside; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
@@ -307,7 +373,7 @@
                                     </td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">6.000.000₫/tháng<br>(3.000.000₫/tháng cho 3 tháng đầu)</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #E6F0F8;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 240, 248, 0.7);">
                                     <td rowspan="3" style="padding: 0.75rem 1rem; color: #374151; font-weight: 500; white-space: nowrap;">OpenAI ChatGPT</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Miễn phí</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
@@ -322,7 +388,7 @@
                                     </td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">$0/tháng</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #E6F0F8;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 240, 248, 0.7);">
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Plus</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
                                         <ul style="list-style-type: disc; list-style-position: inside; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
@@ -337,7 +403,7 @@
                                     </td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">$20 USD/tháng</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #E6F0F8;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 240, 248, 0.7);">
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Pro</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
                                         <ul style="list-style-type: disc; list-style-position: inside; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
@@ -353,7 +419,7 @@
                                     </td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">$200 USD/tháng</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: #FFFBE6;">
+                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(255, 251, 230, 0.7);">
                                     <td rowspan="2" style="padding: 0.75rem 1rem; color: #374151; font-weight: 500; white-space: nowrap;">Google NotebookLM</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Miễn phí</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
@@ -367,7 +433,7 @@
                                     </td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568; font-weight: 700;">Miễn phí (yêu cầu tài khoản Google)</td>
                                 </tr>
-                                <tr style="background-color: #FFFBE6;">
+                                <tr style="background-color: rgba(255, 251, 230, 0.7);">
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Pro</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">
                                         <ul style="list-style-type: disc; list-style-position: inside; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
@@ -663,6 +729,13 @@
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
                         <li>**Tổng quan về hệ sinh thái Gemini:** Khả năng xử lý văn bản, hình ảnh, âm thanh, video.</li>
                         <li>**Trải nghiệm Gemini Live:** Tương tác giọng nói và thời gian thực.</li>
+                        <li>**Veo 3 Fast & Flow:** Công cụ tạo video AI chất lượng cao.</li>
+                        <li>**Whisk:** Tạo video từ hình ảnh một cách dễ dàng.</li>
+                        <li>**Deep Think:** Mô hình suy luận tiên tiến nhất của Google (sắp ra mắt).</li>
+                        <li>**Tích hợp hệ sinh thái Google:** Dùng Gemini ngay trong Gmail, Tài liệu, Drive, Photos, và Chrome.</li>
+                        <li>**Project Mariner (quyền tiếp cận sớm):** Đơn giản hoá công việc bằng nguyên mẫu nghiên cứu dạng tác nhân AI.</li>
+                        <li>**Gói YouTube Premium cá nhân:** Xem YouTube không quảng cáo, không cần mạng và phát trong nền.</li>
+                        <li>**Chia sẻ cho gia đình:** Có thể chia sẻ gói Ultra với 5 thành viên khác trong gia đình.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">3.2. Gemini trong quản lý công việc và cuộc sống cá nhân</h3>
@@ -688,7 +761,65 @@
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">3.5. Thiết kế Chatbot cá nhân hóa với Gemini (Gems)</h3>
-                    <p style="color: #4A5568;">Tìm hiểu cách xây dựng các chatbot tùy chỉnh để tự động hóa các tác vụ hoặc cung cấp thông tin nhanh chóng.</p>
+                    <p style="color: #4A5568; margin-bottom: 1rem;">
+                        Gemini (Gems) cho phép bạn tạo các chatbot tùy chỉnh, phục vụ mục đích cá nhân hoặc chuyên nghiệp, giúp tự động hóa các tác vụ và cung cấp thông tin nhanh chóng, hiệu quả.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072;">
+                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Lợi ích khi tạo Chatbot với Gemini Gems:</h4>
+                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                            <li>**Tiết kiệm thời gian:** Tự động hóa các tác vụ lặp lại, trả lời câu hỏi thường gặp.</li>
+                            <li>**Tăng cường hiệu suất:** Xử lý nhanh chóng các yêu cầu, giải phóng thời gian cho công việc phức tạp hơn.</li>
+                            <li>**Cá nhân hóa:** Tạo ra chatbot với phong cách và kiến thức chuyên biệt cho nhu cầu của bạn.</li>
+                            <li>**Tính khả dụng 24/7:** Chatbot luôn sẵn sàng hỗ trợ mọi lúc.</li>
+                            <li>**Tối ưu hóa nội dung:** Hỗ trợ tạo và tối ưu nội dung theo yêu cầu.</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072; margin-top: 1.5rem;">
+                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Ứng dụng điển hình: Tạo content Facebook với Gems</h4>
+                        <p style="color: #4A5568;">
+                            Đối với những người thường xuyên đăng bài Facebook (nhà quản lý cộng đồng, người bán hàng online, nhà tiếp thị nội dung), Gems có thể trở thành trợ lý đắc lực giúp bạn:
+                        </p>
+                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                            <li>**Tạo ý tưởng bài viết:** Chỉ cần cung cấp chủ đề, Gems sẽ gợi ý các ý tưởng độc đáo.</li>
+                            <li>**Soạn thảo nội dung bài đăng:** Từ status ngắn gọn đến bài viết dài, Gems có thể viết theo nhiều giọng điệu (vui vẻ, chuyên nghiệp, truyền cảm hứng...).</li>
+                            <li>**Gợi ý hashtag phù hợp:** Tối ưu hóa khả năng tiếp cận bài viết.</li>
+                            <li>**Viết caption cho hình ảnh/video:** Tạo các mô tả hấp dẫn và thu hút.</li>
+                            <li>**Điều chỉnh phong cách và giọng điệu:** Đảm bảo bài viết phù hợp với thương hiệu cá nhân hoặc doanh nghiệp.</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072; margin-top: 1.5rem;">
+                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Hướng dẫn cách làm Chatbot với Gems (tạo content Facebook):</h4>
+                        <ul style="list-style-type: decimal; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <li>**Bước 1: Xác định mục tiêu của Chatbot:**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Bạn muốn chatbot giúp tạo loại nội dung gì? (Ví dụ: bài đăng bán hàng, status chia sẻ kiến thức, caption ảnh du lịch...). Xác định rõ đối tượng mục tiêu của bài đăng Facebook của bạn.</p>
+                            </li>
+                            <li>**Bước 2: Truy cập Gemini và tạo Gem mới:**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Đăng nhập vào Gemini (nếu chưa có tài khoản, hãy đăng ký). Tìm mục "Tạo Gem" hoặc "Custom AI" để bắt đầu thiết lập chatbot.</p>
+                            </li>
+                            <li>**Bước 3: Hướng dẫn vai trò và mục tiêu cho Gems:**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Cung cấp cho Gems một "vai trò" cụ thể. Ví dụ: "Bạn là một chuyên gia marketing nội dung Facebook, chuyên tạo các bài đăng thu hút tương tác cho các cửa hàng thời trang."</p>
+                            </li>
+                            <li>**Bước 4: Cung cấp dữ liệu huấn luyện (nếu cần):**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Để Gems hiểu phong cách của bạn, hãy tải lên một số bài đăng Facebook mẫu mà bạn thấy hiệu quả, hoặc các ghi chú về sản phẩm/dịch vụ của bạn. Điều này giúp Gems tạo ra nội dung phù hợp và nhất quán.</p>
+                            </li>
+                            <li>**Bước 5: Thiết lập các câu lệnh mẫu (Prompt Templates):**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Tạo các prompt mẫu mà bạn sẽ dùng thường xuyên. Ví dụ:
+                                    <ul style="list-style-type: circle; list-style-position: inside; margin-left: 1rem; font-size: 0.9rem;">
+                                        <li>"Viết bài đăng Facebook về [Tên sản phẩm/dịch vụ] với giọng điệu [Giọng điệu], tập trung vào lợi ích [Lợi ích chính]. Gợi ý 5 hashtag."</li>
+                                        <li>"Tạo caption ngắn cho hình ảnh [Mô tả hình ảnh] về [Chủ đề] với phong cách [Phong cách]."</li>
+                                    </ul>
+                                </p>
+                            </li>
+                            <li>**Bước 6: Kiểm tra và tinh chỉnh:**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Bắt đầu sử dụng Gems bằng cách nhập các prompt của bạn. Đánh giá chất lượng của nội dung được tạo ra. Nếu cần, hãy điều chỉnh vai trò, dữ liệu huấn luyện, hoặc các câu lệnh mẫu để Gems cho ra kết quả tốt hơn.</p>
+                            </li>
+                            <li>**Bước 7: Tích hợp (Tùy chọn):**
+                                <p style="margin-left: 1.5rem; font-size: 0.95rem;">Nếu bạn sử dụng các công cụ quản lý mạng xã hội, hãy xem xét khả năng tích hợp của Gems (qua API nếu có) để tự động hóa quy trình đăng bài.</p>
+                            </li>
+                        </ul>
+                    </div>
                 </section>
             </div>
 
@@ -802,6 +933,8 @@
         </div> <!-- End of main-content-area -->
 
     </div> <!-- End of app-container -->
+    </div> <!-- End of app-container -->
+    </div> <!-- End of app-container -->
   
     
     </main>
@@ -858,7 +991,8 @@
 
     <!-- Liên kết đến file JavaScript -->
     <script src="assets/js/liquid_glass.js"></script>
-    <script>
+
+<script>
         document.addEventListener('DOMContentLoaded', function() {
             // Data for resources table
             const resourcesData = [
