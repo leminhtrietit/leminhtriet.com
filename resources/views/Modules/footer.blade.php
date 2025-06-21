@@ -3,8 +3,9 @@
 			<div class="row mb-5">
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-footer-logo">MT<span>solution</span></h2>
-						<p>
+					<div class="ftco-footer-logo">
+                                <img src="{{ asset('assets/images/logo_trang.png') }}" alt="MinhTrietEras" height="60">
+                            </div>   						<p>
 							All your need!
 						</p>
 						<ul class="ftco-footer-social list-unstyled mt-2">
@@ -22,7 +23,7 @@
 						<h2 class="ftco-heading-2">Have a Questions?</h2>
 						<div class="block-23 mb-3">
 							<ul>
-								<li><span class="icon fa fa-map marker"></span><span class="text">Tan Binh, Ho Chi Minh</span></li>
+								<li><span class="icon fa fa-map marker"></span><span class="text">District 7, Ho Chi Minh</span></li>
 								<li><a href="tel:+84946426536"><span class="icon fa fa-phone"></span><span class="text">+84 946 426 536</span></a></li>
 								<li><a href="mailto:contact@leminhtriet.com"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">contact@leminhtriet.com</span></a></li>
 							</ul>

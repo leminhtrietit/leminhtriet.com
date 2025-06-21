@@ -31,6 +31,7 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Quản lí tài khoản';
     protected static ?string $pluralLabel = 'Quản lí tài khoản';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    
     // Thêm dòng này để nhóm Resource lại
     protected static ?string $navigationGroup = 'Account'; // Tên nhóm bạn muốn
 
@@ -38,7 +39,17 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                // Đây là form schema dùng cho cả Create & Edit
+                // Có thể để name, email, password...
+                Forms\Components\TextInput::make('email')
+                    ->label('Email')
+                    ->email()
+                    ->required(),
+                Select::make('roles') // Thêm field roles
+                    ->multiple()
+                    ->relationship('roles', 'name') // Lấy tên vai trò từ quan hệ roles
+                    ->preload() // Tải trước tất cả các vai trò (tùy chọn)
+                    ->label('Có thể truy cập brach'), // Đặt label cho field
             ]);
     }
 
@@ -46,12 +57,16 @@ class UserResource extends Resource
     {
         return $table
         ->columns([
-            TextColumn::make('name')->label('ID')->sortable()->searchable(),
+            TextColumn::make('name')->label('Tên')->sortable()->searchable(),
             // TextColumn::make('email')->label('Email')->sortable()->searchable(),
             // TextColumn::make('identitynumber')->label('Passport'),
             TextColumn::make('email')->label('Email'),
             // TextColumn::make('roles.name')->label('Vai Trò')->sortable(),
             // TextColumn::make('created_at')->label('Ngày tạo')->dateTime(),
+            // Cột hiển thị roles
+            TextColumn::make('roles.name')->label('Vai Trò')->sortable(), // Hiển thị tên vai trò
+
+
         ])
         ->filters([])
         ->actions([
@@ -74,7 +89,9 @@ class UserResource extends Resource
             $record->update(['password' => $newPassword]);
             
             // Gửi email
-            Mail::to($record->email)->send(new \App\Mail\ResetPasswordMail($record, $identityNumber));
+            Mail::to($record->email)->send(
+                (new \App\Mail\ResetPasswordMail($record,"", $identityNumber))->buildResetPassword()
+            );
 
             // Hiển thị thông báo thành công với identitynumber chưa hash
             \Filament\Notifications\Notification::make()
@@ -96,9 +113,9 @@ class UserResource extends Resource
         ];
     }
     public static function canCreate(): bool
-{
-    return false; // Không cho phép tạo user
-}
+    {
+        return false; // Không cho phép tạo user
+    }
 
     public static function getPages(): array
     {
@@ -107,5 +124,13 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
+    }
+
+    protected function syncRoles(User $record, array $roles): void
+    {
+        $record->roles()->syncWithPivotValues(
+            $roles,
+            ['model_type' => User::class] // Đảm bảo thêm model_type ở đây
+        );
     }
 }

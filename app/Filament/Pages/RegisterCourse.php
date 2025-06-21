@@ -26,6 +26,8 @@ use Illuminate\Support\Str;
 use Filament\Notifications\Notification;
 use Carbon\Carbon;
 use Filament\Actions\Action;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterCourse extends Page
 {
@@ -177,12 +179,13 @@ class RegisterCourse extends Page
                 $placeOfBirth = $this->getProvinceName($this->getProvinceCodeFromCCCD($cccd));
 
                 // 2. Tạo User (Không có 'name' theo ERD)
-                $tempPassword = Str::random(8);
+                $tempPassword = bcrypt($cccd);
                 $newUser = User::create([
                     'email' => $formData['email'],
-                    'password' => Hash::make($tempPassword),
+                    'password' => bcrypt($cccd),
                 ]);
                 $userId = $newUser->id;
+                $newUser->assignRole('student');
 
                 // 3. Tạo PersonalInfo
                 $personalInfo = PersonalInfo::create([
@@ -196,18 +199,26 @@ class RegisterCourse extends Page
                     'gender' => $gender,
                     'placeofbirth' => $placeOfBirth, // Giả sử cột DB là placeofbirth
                 ]);
-                // dd($personalInfo);
+               // dd($newUser-> email);
+                Mail::to($newUser-> email)->send(
+                    (new \App\Mail\ResetPasswordMail($newUser))->buildCreateAccount()
+                );
+              //  \Mail::to($formData['email'])->send(new \App\Mail\VerifyEmailMail($newUser));
+
                 // --- Gửi Thông báo ---
                 Notification::make()
-                    ->title('Tạo mới học viên thành công!')
+                    ->title('Tạo mới tài khoản thành công!')
+                    ->body("Đã gửi thông tin đăng nhập đến {$formData['email']}. Yêu cầu người dùng đổi mật khẩu.")
                     ->success()
                     ->send();
 
                 if ($tempPassword) {
                     Notification::make()
-                        ->title('Đã tạo tài khoản User')
-                        ->body("Mật khẩu tạm thời cho {$formData['email']}: {$tempPassword}. Yêu cầu người dùng đổi mật khẩu.")
-                        ->info()->persistent()->sendToDatabase(auth()->user());
+                        ->title('Đã tạo tài khoản User mới')
+                        ->body("Đã gửi thông tin đăng nhập đến {$formData['email']}. Yêu cầu người dùng đổi mật khẩu.")
+                        ->info()
+                        ->persistent()
+                        ->sendToDatabase(auth()->user());
                 }
 
                 // Reset form

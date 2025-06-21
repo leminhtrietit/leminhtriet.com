@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "tailwindcss";
 
 .dt-input {
     border: 1px solid #ccc;        /* Đổi màu và độ dày của đường viền */

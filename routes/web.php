@@ -4,6 +4,40 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\EmailChangeController;
+use App\Http\Controllers\Auth\PasswordChangeController;
+use App\Filament\Pages\Auth\ChangePassword;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\PostController;
+
+Route::get('/email/verify/{id}/{token}', [EmailVerificationController::class, 'verify'])
+    ->middleware(['signed'])
+    ->name('verification.verify');
+
+Route::get('login', [LoginController::class, 'showLoginForm'])
+    ->middleware('guest') // Chỉ khách mới vào được trang login
+    ->name('login');
+
+// Xử lý dữ liệu form đăng nhập
+Route::post('login', [LoginController::class, 'login'])
+    ->middleware('guest'); // Chỉ khách mới submit được form login
+
+// Xử lý đăng xuất
+Route::post('logout', [LoginController::class, 'logout'])
+    ->middleware('auth') // Chỉ người đã đăng nhập mới đăng xuất được
+    ->name('logout');
+
+// Route để xử lý logout từ Filament và về trang chủ
+Route::post('/panel-logout', [LoginController::class, 'filamentLogout'])
+      ->middleware('auth') // Chỉ user đã đăng nhập mới gọi được
+      ->name('filament.panel.logout'); // Đặt tên route là 'filament.panel.logout' (hoặc tên khác tùy bạn)
+
+// --- KẾT THÚC ROUTE ĐĂNG NHẬP / ĐĂNG XUẤT ---
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/change-password', [PasswordChangeController::class, 'showForm'])->name('admin.change-password');
+    Route::post('/admin/change-password', [PasswordChangeController::class, 'update']);
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/email/change', [EmailChangeController::class, 'showRequestForm'])->name('email.change.form');
@@ -20,21 +54,40 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/portfolio', function () {
+    return view('portfolio');
+})->name('portfolio');
 
-Route::get('/resource', [App\Http\Controllers\ResourceController::class, 'index'])->name('resource.index');
+Route::get('/thunghiem', function () {
+    return view('test');
+})->name('thunghiem');
+
+
+Route::get('/resource', [App\Http\Controllers\ResourceController::class, 'index'])->name('resource');
 Route::get('/download', [App\Http\Controllers\ResourceController::class, 'index']);
+Route::get('/download', [App\Http\Controllers\ResourceController::class, 'index']);
+
+
+Route::get('/tutorial', function () {
+    return view('tutorial');
+})->name('tutorial');
+
 Route::get('/learning/aiforwork/buoi2', function () {
-    return view('aiforwork.buoi2');
+    return redirect('https://leminhtriet.com/posts/ai-for-meeting-note');
 });
+
 Route::get('/learning/aiforwork/meetingnote', function () {
-    return view('aiforwork.buoi2');
+    return redirect('https://leminhtriet.com/posts/ai-for-meeting-note');
 });
+
 Route::get('/learning/aiforwork/buoi3', function () {
-    return view('aiforwork.buoi3');
+    return redirect('https://leminhtriet.com/posts/chuyen-nghiep-hoa-viec-lam-slide');
 });
+
 Route::get('/learning/aiforwork/presentation', function () {
-    return view('aiforwork.buoi3');
+    return redirect('https://leminhtriet.com/posts/chuyen-nghiep-hoa-viec-lam-slide');
 });
+
 Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
@@ -43,6 +96,29 @@ Route::get('/clear-cache', function () {
     return "Đã xóa cache!";
 });
 
+Route::get('/storage', function () {
+    Artisan::call('storage:link');
+    return "Đã chơi!";
+});
+
 Route::get('/logo', function () {
     return view('logo');
+});
+
+// routes/web.php
+
+Route::get('/dump-autoload', function () {
+    // Chạy lệnh composer dump-autoload
+    $output = shell_exec('composer dump-autoload');
+    return "<pre>$output</pre>";
+});
+
+
+Route::get('/categories/{category:slug}', [PostController::class, 'index'])->name('categories.index');
+Route::get('/tags/{tag:slug}', [PostController::class, 'index'])->name('tags.index');Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/tools', [PostController::class, 'tools'])->name('tools.index');
+Route::get('/test', function () {
+    return view('tool');
 });

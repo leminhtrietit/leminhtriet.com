@@ -9,6 +9,7 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
+use Filament\Navigation\MenuItem;
 use Filament\Pages\Auth\Register;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -24,6 +25,10 @@ use App\Filament\Resources\SubjectResource;
 use App\Filament\Resources\UserResource;
 use App\Filament\Pages\Auth\EditUserProfile;
 use Filament\Facades\Filament;
+use App\Http\Middleware\ForcePasswordChange;
+use App\Filament\Pages\ChangePassword;
+use App\Http\Middleware\EnsureUserHasRole; // Thêm use
+use App\Http\Controllers\CustomLogoutController; // Nếu cần dùng reference
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -33,9 +38,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            //->login() //dùng login của laravel
             ->brandName('MinhTrietEras')
-            ->spa()
+            ->spa()          
+
             ->favicon(asset('assets/images/logo_tron.png'))
             ->colors([
                 'primary' => Color::Hex('#221a56'),
@@ -46,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
+
             //->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             // ->widgets([
             //     // Widgets\AccountWidget::class,
@@ -63,9 +70,13 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+
+
             ])
             ->authMiddleware([
                 Authenticate::class,
+                EnsureUserHasRole::class . ':admin', // <-- Chỉ cho phép admin
+
             ]);
     }
 }

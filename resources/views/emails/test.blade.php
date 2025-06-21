@@ -111,7 +111,7 @@
                 {{ $headerTitle }}
             </h2>
             <p class="subtitle">
-                {{ $subTitle  }}
+                {!! $subTitle !!}
             </p>
 
             <div class="message">

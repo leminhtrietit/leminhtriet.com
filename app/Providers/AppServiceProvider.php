@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Filament\Facades\Filament;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,8 +26,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
-        
+        Blade::directive('renderIframe', function ($content) {
+            return "<?php 
+                \$iframeRegex = '/<iframe.*?<\/iframe>/i';
+                if (preg_match(\$iframeRegex, $content)) { 
+                    echo {$content};
+                } else {
+                    echo '<p>'. {$content} .'</p>'; 
+                }
+            ?>";
+        });
     }
 
    

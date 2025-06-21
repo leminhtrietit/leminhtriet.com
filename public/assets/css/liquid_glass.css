@@ -1,0 +1,44 @@
+body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            padding-top: 120px;
+            /* Padding-bottom sẽ được JS tính toán động */
+             /* background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); */
+                background-image: linear-gradient(to bottom, #00ffff, #00ff99);
+
+             background-size: cover;
+            background-attachment: fixed;
+            transition: padding-bottom 0.2s ease-out; /* Thêm hiệu ứng chuyển động mượt */
+        }
+
+        /* Thêm box-shadow tùy chỉnh bạn cung cấp */
+        .custom-shadow {
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hiệu ứng hào quang theo chuột */
+        .glow-effect {
+            background: radial-gradient(
+                250px circle at var(--x) var(--y),
+                #ec4899, /* pink-500 */
+                #a855f7, /* purple-500 */
+                transparent 80%
+            );
+        }
+
+        /* Hiệu ứng loading spinner */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6366f1; /* indigo-500 */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }

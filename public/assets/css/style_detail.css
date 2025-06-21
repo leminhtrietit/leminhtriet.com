@@ -40,24 +40,19 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-html {
-  font-family: sans-serif;
-  line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-
+  html, body {
+    height: 100%; /* Đảm bảo body chiếm toàn bộ chiều cao màn hình */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+.main-content {
+    flex: 1; /* Cho phép nội dung chính chiếm phần không gian còn lại */
+  }
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
-  text-align: left;
-  background-color: #fff; }
+
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -8134,11 +8129,17 @@ a.text-dark:hover, a.text-dark:focus {
 
 body {
   font-family: "Montserrat", Arial, sans-serif;
-  background: #fff;
+  background-image: url('/images/bg-1.jpg');
+
+  /* background: #0047AB; */
+
   font-size: 16px;
   line-height: 1.8;
   font-weight: 400;
-  color: #999999; }
+  color: #999999; 
+
+
+}
   body.menu-show {
     overflow: hidden;
     position: fixed;
@@ -8218,7 +8219,7 @@ h1, h2, h3, h4, h5,
     @media (min-width: 992px) {
       .ftco-navbar-light .container {
         background: #fff;
-        border-radius: 4px; } }
+        border-radius: 20px; } }
   .ftco-navbar-light .navbar-brand {
     color: #323edd;
     padding-top: 1.5rem;
@@ -8417,15 +8418,16 @@ h1, h2, h3, h4, h5,
     right: 0;
     bottom: 0;
     content: '';
-    opacity: .6;
+    opacity: 0;
      }
   .content .hero-wrap.hero-wrap-2 {
-    height: 800px; }
+    height: 400px; }
     .content .hero-wrap.hero-wrap-2 .overlay {
       height: 800px;
       width: 100%;
-      background: #212cc5;
-      opacity: .6; }
+      /* background: linear-gradient(to bottom, #231d5b, #7a296b,#bf4568,#ee775b, #ffb556, #f9f871); */
+
+      opacity: 0; }
       .content .hero-wrap.hero-wrap-2 .slider-text {
       height: 200px; }
 
@@ -8450,11 +8452,12 @@ h1, h2, h3, h4, h5,
           opacity: .6;
            }
            .content .hero-wrap.hero-wrap-2 {
-          height: 300px; }
+          height: 200px; }
           .content .hero-wrap.hero-wrap-2 .overlay {
-            height: 300px;
+            height: 200px;
             width: 100%;
-            background: #212cc5;
+            /* background: linear-gradient(to bottom, #231d5b, #7a296b,#bf4568,#ee775b, #ffb556, #f9f871); */
+
             opacity: .6; }
             .content .hero-wrap.hero-wrap-2 .slider-text {
             height: 200px; }
@@ -8652,7 +8655,8 @@ h1, h2, h3, h4, h5,
   display: block;
   overflow: hidden;
   z-index: 0;
-  margin-bottom: 50px; }
+  /* margin-bottom: 50px;  */
+}
   .project .img {
     position: relative;
     overflow: hidden;
@@ -8950,7 +8954,14 @@ textarea.form-control {
   @media (max-width: 767.98px) {
     .ftco-section {
       padding: 6em 0; } }
-
+#list-content{
+  padding-top: 20px;
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+}
 .ftco-no-pt {
   padding-top: 0 !important; }
 
@@ -9098,8 +9109,6 @@ textarea.form-control {
       .ftco-footer-social li a:hover span {
         color: #ffa41b !important; }
 
-.wrapper {
-  width: 100%; }
 
 .contact-wrap {
   background: #fff; }

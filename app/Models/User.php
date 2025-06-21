@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        
     ];
 
     /**
@@ -30,6 +32,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at', // Phải có ở đây nếu dùng mass assignment
+
     ];
 
     /**
@@ -56,5 +60,58 @@ class User extends Authenticatable
     public function socialAccounts()
     {
         return $this->hasMany(\App\Models\UserSocialAccount::class);
-    }                  
+    }             
+    // public function givePermissionTo(string $permission)
+    // {
+    //     $permissions = $this->permissions ?? [];
+    //     if (!in_array($permission, $permissions)) {
+    //         $permissions[] = $permission;
+    //         $this->permissions = $permissions;
+    //         $this->save();
+    //     }
+    // }
+
+    // public function revokePermissionTo(string $permission)
+    // {
+    //     $permissions = $this->permissions ?? [];
+    //     $permissions = array_diff($permissions, [$permission]);
+    //     $this->permissions = $permissions;
+    //     $this->save();
+    // }
+
+    // public function hasPermissionTo(string $permission): bool
+    // {
+    //     $permissions = $this->permissions ?? [];
+    //     return in_array($permission, $permissions);
+    // }
+    public function givePermissionTo(string $permission)
+    {
+        $permissions = (array)($this->permissions ?? []); // Explicitly cast to array
+        if (!in_array($permission, $permissions)) {
+            $permissions[] = $permission;
+            $this->permissions = $permissions;
+            $this->save();
+        }
+    }
+
+    public function revokePermissionTo(string $permission)
+    {
+        $permissions = (array)($this->permissions ?? []); // Explicitly cast to array
+        $permissions = array_diff($permissions, [$permission]);
+        $this->permissions = $permissions;
+        $this->save();
+    }
+
+    public function hasPermissionTo(string $permission): bool
+    {
+        $permissions = (array)($this->permissions ?? []); // Explicitly cast to array
+        return in_array($permission, $permissions);
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')
+                    ->withPivot('model_type'); // Thêm withPivot('model_type')
+    }
+
+     
 }

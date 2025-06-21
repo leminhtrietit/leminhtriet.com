@@ -21,7 +21,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Carbon\Carbon;
-
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Mail;
 class PersonalInfoResource extends Resource
 {
     protected static ?string $model = PersonalInfo::class;
@@ -240,7 +241,32 @@ public static function createForm(Form $form): Form
         ->filters([])
         ->actions([
             Tables\Actions\EditAction::make(),
-            Tables\Actions\DeleteAction::make(),
+            Tables\Actions\DeleteAction::make()
+                ->using(function ($record) {
+                            // Kiểm tra xem có dữ liệu hay không
+
+                // Xóa liên quan
+                if ($record->personalInfo) {
+                    $record->personalInfo->delete();
+                }
+                //dd($record);
+                // Gửi mail
+                Mail::to($record->user->email)->send(
+                    (new \App\Mail\ResetPasswordMail($record->user))
+                        ->buildDeleteAccount()
+                );      
+                $record->user->delete();
+
+
+                 // Hiển thị thông báo thành công với identitynumber chưa hash
+                \Filament\Notifications\Notification::make()
+                    ->title('Xóa thành công!')
+                    ->body("Đã gửi email thông báo đến {$record->user->email}.")
+                    // ->body("Mật khẩu mới của {$record->email} là: **{$identityNumber}**")
+                    ->danger()
+                    ->send();
+               
+                }),
         ]);
     }
 
