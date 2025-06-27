@@ -14,7 +14,73 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #262626;
+        }
+        .glass-background {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+        }
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.6);
+        }
 
+        .ai-gemini-row, .ai-chatgpt-row, .ai-notebooklm-row {
+            transition: filter 0.3s ease-out;
+        }
+        .ai-gemini-row { background-color: rgba(230, 243, 230, 0.7); }
+        .ai-chatgpt-row { background-color: rgba(230, 240, 248, 0.7); }
+        .ai-notebooklm-row { background-color: rgba(255, 251, 230, 0.7); }
+        .ai-gemini-row:hover, .ai-chatgpt-row:hover, .ai-notebooklm-row:hover {
+            filter: brightness(0.95);
+        }
+
+        .scroll-y-container {
+            height: 500px;
+            overflow-y: auto;
+            border: 1px solid #D1D5DB;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #F8F7F4;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-width: 350px;
+            }
+        }
+        /* New highlight colors for prompt components */
+        .highlight-role-context { color: #3498DB; font-weight: 600; }
+        .highlight-input-info { color: #E67E22; font-weight: 600; }
+        .highlight-output-req { color: #27AE60; font-weight: 600; }
+        .highlight-knowledge-limit { color: #9B59B6; font-weight: 600; }
+        .highlight-task-assign { color: #E74C3C; font-weight: 600; }
+        .highlight-note-breakdown { color: #1ABC9C; font-weight: 600; }
+        .highlight-note-example { color: #F39C12; font-weight: 600; }
+    </style>
     <!-- Liên kết đến file CSS tùy chỉnh -->
     <link rel="stylesheet" href="assets/css/liquid_glass.css">
 
@@ -87,74 +153,11 @@
 
     <!-- ======================= 2. CONTENT SECTION (LIQUID GLASS STYLE) ======================= -->
     <main class="w-full">
-            <div class="max-w-6xl mx-auto px-6 py-12">
-        <div class="bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-lg shadow-lg border border-white/20">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-white/80 backdrop-blur-md p-3 rounded-lg shadow-lg border border-white/20">
 
- <div id="app-container" style="max-width: 1280px; margin-left: auto; margin-right: auto; padding: 2rem 1rem; width: 100%;">
-        <div id="main-content-area" style="padding: 2rem; border-radius: 0.5rem; min-height: 100vh;">
-            <!-- Internal styles for glassmorphism and specific element behaviors -->
-            <style>
-                .glass-background {
-                    background-color: rgba(255, 255, 255, 0.2);
-                    backdrop-filter: blur(8px);
-                    border: 1px solid rgba(255, 255, 255, 0.3);
-                    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-                }
-                .glass-card {
-                    background-color: rgba(255, 255, 255, 0.4);
-                    backdrop-filter: blur(5px);
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-                    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out;
-                }
-                .glass-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-                    background-color: rgba(255, 255, 255, 0.6);
-                }
-
-                .ai-gemini-row, .ai-chatgpt-row, .ai-notebooklm-row {
-                    transition: filter 0.3s ease-out;
-                }
-                .ai-gemini-row { background-color: rgba(230, 243, 230, 0.7); }
-                .ai-chatgpt-row { background-color: rgba(230, 240, 248, 0.7); }
-                .ai-notebooklm-row { background-color: rgba(255, 251, 230, 0.7); }
-                .ai-gemini-row:hover, .ai-chatgpt-row:hover, .ai-notebooklm-row:hover {
-                    filter: brightness(0.95);
-                }
-
-                .scroll-y-container {
-                    height: 500px;
-                    overflow-y: auto;
-                    border: 1px solid #D1D5DB;
-                    padding: 1rem;
-                    border-radius: 0.5rem;
-                    background-color: #F8F7F4;
-                }
-
-                .chart-container {
-                    position: relative;
-                    height: 300px;
-                    width: 100%;
-                    max-width: 300px;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-                @media (min-width: 768px) {
-                    .chart-container {
-                        height: 350px;
-                        max-width: 350px;
-                    }
-                }
-                /* New highlight colors for prompt components */
-                .highlight-role-context { color: #3498DB; font-weight: 600; }
-                .highlight-input-info { color: #E67E22; font-weight: 600; }
-                .highlight-output-req { color: #27AE60; font-weight: 600; }
-                .highlight-knowledge-limit { color: #9B59B6; font-weight: 600; }
-                .highlight-task-assign { color: #E74C3C; font-weight: 600; }
-                .highlight-note-breakdown { color: #1ABC9C; font-weight: 600; }
-                .highlight-note-example { color: #F39C12; font-weight: 600; }
-            </style>
+            <div id="app-container" style="max-width: 1280px; width: 100%;">
+                <div id="main-content-area" style="padding: 2rem; border-radius: 0.5rem; min-height: 100vh;">
 
             <!-- Chapter Selection Grid -->
             <div id="chapter-selection-grid" class="tab-pane" style="display: block;">
@@ -249,41 +252,11 @@
                                 Tổng thời lượng khóa học được phân bổ hợp lý vào các chương chính, giúp học viên từng bước làm chủ các công cụ và kỹ năng quan trọng.
                             </p>
                             <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem;">
-                                <li style="display: flex; align-items: flex-start;">
-                                    <span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span>
-                                    <div>
-                                        <h4 style="font-weight: 600;">Chương 1: Tổng quan về AI</h4>
-                                        <p style="color: #4A5568;">Giới thiệu tổng quan về AI và các công cụ phổ biến. (Ước tính: 4-5 tiếng)</p>
-                                    </div>
-                                </li>
-                                <li style="display: flex; align-items: flex-start;">
-                                    <span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span>
-                                    <div>
-                                        <h4 style="font-weight: 600;">Chương 2: Nghệ thuật Tối ưu Prompt</h4>
-                                        <p style="color: #4A5568;">Kỹ năng thiết yếu để tương tác hiệu quả với AI. (Ước tính: 4-5 tiếng)</p>
-                                    </div>
-                                </li>
-                                <li style="display: flex; align-items: flex-start;">
-                                    <span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span>
-                                    <div>
-                                        <h4 style="font-weight: 600;">Chương 3 & 4: Thực hành chuyên sâu (Gemini & ChatGPT)</h4>
-                                        <p style="color: #4A5568;">Khai thác sức mạnh của Gemini và ChatGPT qua các bài tập thực tế. (Ước tính: 20-24 tiếng)</p>
-                                    </div>
-                                </li>
-                                <li style="display: flex; align-items: flex-start;">
-                                    <span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span>
-                                    <div>
-                                        <h4 style="font-weight: 600;">Chương 5: Công cụ chuyên biệt</h4>
-                                        <p style="color: #4A5568;">Làm chủ NotebookLM và khám phá lập trình No-code. (Ước tính: 6-8 tiếng)</p>
-                                    </div>
-                                </li>
-                                <li style="display: flex; align-items: flex-start;">
-                                    <span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span>
-                                    <div>
-                                        <h4 style="font-weight: 600;">Tổng kết</h4>
-                                        <p style="color: #4A5568;">Ôn tập, giải đáp và định hướng tương lai. (Ước tính: 2-3 tiếng)</p>
-                                    </div>
-                                </li>
+                                <li><span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span><h4 style="font-weight: 600;">Chương 1: Tổng quan về AI</h4><p style="color: #4A5568;">Giới thiệu tổng quan về AI và các công cụ phổ biến. (Ước tính: 4-5 tiếng)</p></li>
+                                <li><span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span><h4 style="font-weight: 600;">Chương 2: Nghệ thuật Tối ưu Prompt</h4><p style="color: #4A5568;">Kỹ năng thiết yếu để tương tác hiệu quả với AI. (Ước tính: 4-5 tiếng)</p></li>
+                                <li><span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span><h4 style="font-weight: 600;">Chương 3 & 4: Thực hành chuyên sâu (Gemini & ChatGPT)</h4><p style="color: #4A5568;">Khai thác sức mạnh của Gemini và ChatGPT qua các bài tập thực tế. (Ước tính: 20-24 tiếng)</p></li>
+                                <li><span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span><h4 style="font-weight: 600;">Chương 5: Công cụ chuyên biệt</h4><p style="color: #4A5568;">Làm chủ NotebookLM và khám phá lập trình No-code. (Ước tính: 6-8 tiếng)</p></li>
+                                <li><span style="font-weight: 700; color: #4F6F52; margin-right: 0.75rem; margin-top: 0.25rem;">◆</span><h4 style="font-weight: 600;">Tổng kết</h4><p style="color: #4A5568;">Ôn tập, giải đáp và định hướng tương lai. (Ước tính: 2-3 tiếng)</p></li>
                             </ul>
                         </div>
                         <div style="order: 1;">
@@ -314,8 +287,8 @@
                         Trí tuệ Nhân tạo (AI) là một lĩnh vực khoa học máy tính rộng lớn, tập trung vào việc tạo ra các hệ thống hoặc máy móc có khả năng thực hiện các tác vụ đòi hỏi trí thông minh của con người.
                     </p>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Khái niệm cơ bản về AI:** Tập hợp các công nghệ mô phỏng khả năng nhận thức của con người (Học máy, Học sâu, Xử lý ngôn ngữ tự nhiên, Thị giác máy tính, Robot học).</li>
-                        <li>**Vai trò và lợi ích của AI trong kỷ nguyên số:** Tự động hóa, tối ưu hóa hiệu suất, hỗ trợ cá nhân (quản lý lịch trình, tìm kiếm), cải thiện dịch vụ khách hàng (chatbot).</li>
+                        <li>Khái niệm cơ bản về AI: Tập hợp các công nghệ mô phỏng khả năng nhận thức của con người (Học máy, Học sâu, Xử lý ngôn ngữ tự nhiên, Thị giác máy tính, Robot học).</li>
+                        <li>Vai trò và lợi ích của AI trong kỷ nguyên số: Tự động hóa, tối ưu hóa hiệu suất, hỗ trợ cá nhân (quản lý lịch trình, tìm kiếm), cải thiện dịch vụ khách hàng (chatbot).</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">1.2. Khám phá các công cụ AI phổ biến</h3>
@@ -338,7 +311,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style="border-bottom: 1px solid #E5E7EB; background-color: rgba(230, 243, 230, 0.7);">
+                                <tr class="ai-gemini-row" style="border-bottom: 1px solid #E5E7EB;">
                                     <td rowspan="3" style="padding: 0.75rem 1rem; color: #374151; font-weight: 500; white-space: nowrap;">Google Gemini</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Miễn phí</td>
                                     <td style="padding: 0.75rem 1rem; color: #4A5568;">Gói cá nhân, sử dụng cơ bản. Truy cập mô hình Gemini Pro.</td>
@@ -459,12 +432,12 @@
                             <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Bước 1: Xác định rõ nhu cầu và mục tiêu của bạn</h5>
                             <p style="color: #4A5568; margin-bottom: 0.75rem;">Đây là bước khởi đầu quan trọng nhất. Bạn cần AI để giải quyết vấn đề gì? Hãy liệt kê càng cụ thể càng tốt các tác vụ mà bạn muốn AI hỗ trợ:</p>
                             <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                                <li>Bạn có muốn AI hỗ trợ **viết lách** (viết email, báo cáo, bài luận, kịch bản...)?</li>
-                                <li>Bạn cần AI để **phân tích dữ liệu** (tạo biểu đồ, tìm xu hướng, đưa ra insight từ bảng tính...)?</li>
-                                <li>Bạn mong muốn AI giúp **thiết kế đồ họa** (tạo ảnh, chỉnh sửa ảnh, phác thảo ý tưởng...)?</li>
-                                <li>Bạn muốn AI hỗ trợ **lập kế hoạch** (lịch trình cá nhân, dự án dài hạn, quản lý công việc...)?</li>
-                                <li>Bạn tìm kiếm AI để **hỗ trợ học tập và nghiên cứu** (tóm tắt tài liệu, đặt câu hỏi, tạo sơ đồ tư duy...)?</li>
-                                <li>Bạn có cần AI để **dịch thuật** hoặc **sáng tạo nội dung đa phương tiện** (video, âm thanh)?</li>
+                                <li>Bạn có muốn AI hỗ trợ viết lách (viết email, báo cáo, bài luận, kịch bản...)?</li>
+                                <li>Bạn cần AI để phân tích dữ liệu (tạo biểu đồ, tìm xu hướng, đưa ra insight từ bảng tính...)?</li>
+                                <li>Bạn mong muốn AI giúp thiết kế đồ họa (tạo ảnh, chỉnh sửa ảnh, phác thảo ý tưởng...)?</li>
+                                <li>Bạn muốn AI hỗ trợ lập kế hoạch (lịch trình cá nhân, dự án dài hạn, quản lý công việc...)?</li>
+                                <li>Bạn tìm kiếm AI để hỗ trợ học tập và nghiên cứu (tóm tắt tài liệu, đặt câu hỏi, tạo sơ đồ tư duy...)?</li>
+                                <li>Bạn có cần AI để dịch thuật hoặc sáng tạo nội dung đa phương tiện (video, âm thanh)?</li>
                             </ul>
                             <p style="color: #4A5568; margin-top: 0.75rem;">Việc xác định rõ mục tiêu sẽ giúp bạn thu hẹp phạm vi các công cụ tiềm năng và tránh lãng phí thời gian vào những lựa chọn không phù hợp.</p>
                         </div>
@@ -473,10 +446,10 @@
                             <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Bước 2: Tìm hiểu và so sánh toàn diện các công cụ</h5>
                             <p style="color: #4A5568; margin-bottom: 0.75rem;">Khi đã có danh sách nhu cầu, hãy bắt đầu tìm hiểu các công cụ AI trên thị trường:</p>
                             <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                                <li>**Đọc đánh giá và bài viết chuyên sâu:** Tìm kiếm các bài viết so sánh, đánh giá từ các trang công nghệ, blog chuyên ngành uy tín.</li>
-                                <li>**Xem video hướng dẫn và demo:** YouTube và các nền tảng học trực tuyến có rất nhiều video giới thiệu và hướng dẫn sử dụng từng công cụ. Việc xem demo thực tế sẽ giúp bạn hình dung rõ hơn về giao diện và cách thức hoạt động.</li>
-                                <li>**Tham gia cộng đồng AI:** Các diễn đàn, nhóm mạng xã hội (Facebook Groups, Reddit, Discord) là nơi tuyệt vời để đặt câu hỏi, lắng nghe kinh nghiệm từ những người dùng khác có nhu cầu tương tự bạn. Họ có thể chia sẻ những mẹo và lời khuyên quý giá.</li>
-                                <li>**Lưu ý các tính năng tích hợp:** Nếu bạn đã sử dụng một hệ sinh thái cụ thể (ví dụ: Google Workspace, Microsoft 365), hãy ưu tiên các công cụ AI có khả năng tích hợp sâu rộng vào hệ sinh thái đó để tối ưu hóa quy trình làm việc.</li>
+                                <li>Đọc đánh giá và bài viết chuyên sâu: Tìm kiếm các bài viết so sánh, đánh giá từ các trang công nghệ, blog chuyên ngành uy tín.</li>
+                                <li>Xem video hướng dẫn và demo: YouTube và các nền tảng học trực tuyến có rất nhiều video giới thiệu và hướng dẫn sử dụng từng công cụ. Việc xem demo thực tế sẽ giúp bạn hình dung rõ hơn về giao diện và cách thức hoạt động.</li>
+                                <li>Tham gia cộng đồng AI: Các diễn đàn, nhóm mạng xã hội (Facebook Groups, Reddit, Discord) là nơi tuyệt vời để đặt câu hỏi, lắng nghe kinh nghiệm từ những người dùng khác có nhu cầu tương tự bạn. Họ có thể chia sẻ những mẹo và lời khuyên quý giá.</li>
+                                <li>Lưu ý các tính năng tích hợp: Nếu bạn đã sử dụng một hệ sinh thái cụ thể (ví dụ: Google Workspace, Microsoft 365), hãy ưu tiên các công cụ AI có khả năng tích hợp sâu rộng vào hệ sinh thái đó để tối ưu hóa quy trình làm việc.</li>
                             </ul>
                         </div>
 
@@ -484,10 +457,10 @@
                             <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Bước 3: Trải nghiệm thực tế (Hands-on experience)</h5>
                             <p style="color: #4A5568; margin-bottom: 0.75rem;">Lý thuyết là một chuyện, thực hành lại là chuyện khác. Đa số các công cụ AI đều cung cấp phiên bản miễn phí hoặc bản dùng thử. Hãy tận dụng cơ hội này:</p>
                             <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                                <li>**Đăng ký tài khoản miễn phí/dùng thử:** Tự mình đăng ký và trải nghiệm trực tiếp các công cụ.</li>
-                                <li>**Thực hiện các tác vụ nhỏ, cụ thể:** Hãy thử yêu cầu AI thực hiện các tác vụ mà bạn đã xác định ở Bước 1. Ví dụ: nhờ AI viết một đoạn email, tóm tắt một bài báo, hoặc tạo một hình ảnh đơn giản.</li>
-                                <li>**Đánh giá chất lượng đầu ra:** Xem xét liệu kết quả có đáp ứng được kỳ vọng của bạn về độ chính xác, tính sáng tạo, và tính dễ hiểu hay không.</li>
-                                <li>**Đánh giá trải nghiệm người dùng (UX):** Giao diện có thân thiện không? Tốc độ phản hồi có nhanh không? Có dễ dàng để điều hướng và sử dụng các tính năng không?</li>
+                                <li>Đăng ký tài khoản miễn phí/dùng thử: Tự mình đăng ký và trải nghiệm trực tiếp các công cụ.</li>
+                                <li>Thực hiện các tác vụ nhỏ, cụ thể: Hãy thử yêu cầu AI thực hiện các tác vụ mà bạn đã xác định ở Bước 1. Ví dụ: nhờ AI viết một đoạn email, tóm tắt một bài báo, hoặc tạo một hình ảnh đơn giản.</li>
+                                <li>Đánh giá chất lượng đầu ra: Xem xét liệu kết quả có đáp ứng được kỳ vọng của bạn về độ chính xác, tính sáng tạo, và tính dễ hiểu hay không.</li>
+                                <li>Đánh giá trải nghiệm người dùng (UX): Giao diện có thân thiện không? Tốc độ phản hồi có nhanh không? Có dễ dàng để điều hướng và sử dụng các tính năng không?</li>
                             </ul>
                         </div>
 
@@ -495,9 +468,9 @@
                             <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Bước 4: Xem xét yếu tố chi phí và giá trị lâu dài</h5>
                             <p style="color: #4A5568; margin-bottom: 0.75rem;">Sau khi đã có cái nhìn tổng quan và trải nghiệm thực tế, hãy đưa ra quyết định cuối cùng:</p>
                             <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                                <li>**So sánh lợi ích và chi phí:** Đánh giá kỹ lưỡng giữa những lợi ích mà công cụ mang lại (tiết kiệm thời gian, tăng năng suất, chất lượng công việc) và chi phí bạn phải bỏ ra (nếu là phiên bản trả phí).</li>
-                                <li>**Giá trị lâu dài:** Liệu công cụ này có thể đồng hành cùng bạn trong dài hạn không? Có phù hợp với sự phát triển kỹ năng và mục tiêu nghề nghiệp của bạn trong tương lai không?</li>
-                                <li>**Tối ưu hóa chi phí:** Đôi khi, một công cụ miễn phí nhưng đáp ứng tốt 80% nhu cầu của bạn có thể hiệu quả hơn về mặt chi phí so với một công cụ trả phí đắt tiền mà bạn không khai thác hết tính năng.</li>
+                                <li>So sánh lợi ích và chi phí: Đánh giá kỹ lưỡng giữa những lợi ích mà công cụ mang lại (tiết kiệm thời gian, tăng năng suất, chất lượng công việc) và chi phí bạn phải bỏ ra (nếu là phiên bản trả phí).</li>
+                                <li>Giá trị lâu dài: Liệu công cụ này có thể đồng hành cùng bạn trong dài hạn không? Có phù hợp với sự phát triển kỹ năng và mục tiêu nghề nghiệp của bạn trong tương lai không?</li>
+                                <li>Tối ưu hóa chi phí: Đôi khi, một công cụ miễn phí nhưng đáp ứng tốt 80% nhu cầu của bạn có thể hiệu quả hơn về mặt chi phí so với một công cụ trả phí đắt tiền mà bạn không khai thác hết tính năng.</li>
                             </ul>
                         </div>
                     </div>
@@ -697,11 +670,11 @@
                         <div style="width: 100%; margin-top: 2rem;"> 
                             <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.75rem;">2.2. Lưu ý khi tạo Prompt</h5>
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-                                <div class="prompt-card" style="padding: 1rem; border-radius: 0.5rem; background-color: white; border: 1px solid #D1D5DB;">
+                                <div class="prompt-card glass-card" style="padding: 1rem; border-radius: 0.5rem; background-color: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.2);">
                                     <h6 style="font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; color: #1ABC9C;">Chia nhỏ Tác vụ</h6>
                                     <p style="color: #4A5568; font-size: 0.875rem;">Chia yêu cầu phức tạp thành các bước nhỏ.</p>
                                 </div>
-                                <div class="prompt-card" style="padding: 1rem; border-radius: 0.5rem; background-color: white; border: 1px solid #D1D5DB;">
+                                <div class="prompt-card glass-card" style="padding: 1rem; border-radius: 0.5rem; background-color: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.2);">
                                     <h6 style="font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; color: #F39C12;">Cung cấp Ví dụ</h6>
                                     <p style="color: #4A5568; font-size: 0.875rem;">Cung cấp ví dụ về đầu ra mong muốn để AI tuân theo định dạng.</p>
                                 </div>
@@ -727,84 +700,155 @@
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">3.1. Giới thiệu Gemini và những tính năng nổi bật</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Tổng quan về hệ sinh thái Gemini:** Khả năng xử lý văn bản, hình ảnh, âm thanh, video.</li>
-                        <li>**Trải nghiệm Gemini Live:** Tương tác giọng nói và thời gian thực.</li>
-                        <li>**Veo 3 Fast & Flow:** Công cụ tạo video AI chất lượng cao.</li>
-                        <li>**Whisk:** Tạo video từ hình ảnh một cách dễ dàng.</li>
-                        <li>**Deep Think:** Mô hình suy luận tiên tiến nhất của Google (sắp ra mắt).</li>
-                        <li>**Tích hợp hệ sinh thái Google:** Dùng Gemini ngay trong Gmail, Tài liệu, Drive, Photos, và Chrome.</li>
-                        <li>**Project Mariner (quyền tiếp cận sớm):** Đơn giản hoá công việc bằng nguyên mẫu nghiên cứu dạng tác nhân AI.</li>
-                        <li>**Gói YouTube Premium cá nhân:** Xem YouTube không quảng cáo, không cần mạng và phát trong nền.</li>
-                        <li>**Chia sẻ cho gia đình:** Có thể chia sẻ gói Ultra với 5 thành viên khác trong gia đình.</li>
+                        <li>Tổng quan về hệ sinh thái Gemini: Khả năng xử lý văn bản, hình ảnh, âm thanh, video.</li>
+                        <li>Trải nghiệm Gemini Live: Tương tác giọng nói và thời gian thực.</li>
+                        <li>Veo 3 Fast & Flow: Công cụ tạo video AI chất lượng cao.</li>
+                        <li>Whisk: Tạo video từ hình ảnh một cách dễ dàng.</li>
+                        <li>Deep Think: Mô hình suy luận tiên tiến nhất của Google (sắp ra ra mắt).</li>
+                        <li>Tích hợp hệ sinh thái Google: Dùng Gemini ngay trong Gmail, Tài liệu, Drive, Photos, và Chrome.</li>
+                        <li>Project Mariner (quyền tiếp cận sớm): Đơn giản hoá công việc bằng nguyên mẫu nghiên cứu dạng tác nhân AI.</li>
+                        <li>Gói YouTube Premium cá nhân: Xem YouTube không quảng cáo, không cần mạng và phát trong nền.</li>
+                        <li>Chia sẻ cho gia đình: Có thể chia sẻ gói Ultra với 5 thành viên khác trong gia đình.</li>
                     </ul>
+
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">Giao diện của Gemini</h3>
+                    <p style="color: #4A5568; margin-bottom: 1.5rem;">
+                        Giao diện của Gemini được thiết kế trực quan và hiện đại, giúp người dùng dễ dàng tương tác với các tính năng AI mạnh mẽ. Dưới đây là các khu vực chính:
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072;">
+                        <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Khu vực chọn các model AI (Flash, Pro, Personalize)</h5>
+                        <img src="{{ asset('assets/images/gemini-choose-model.gif') }}" alt="Ảnh: Khu vực chọn model AI Flash, Pro, Personalize (Kích thước: 426x240px)" style="width: 426px; height: 240px; display: block; margin: 0 auto; border-radius: 0.5rem; object-fit: contain; margin-bottom: 0.5rem;">
+                        <p style="font-size: 0.875rem; color: #4A5568; text-align: center;">Khu vực lựa chọn giữa các mô hình AI: Flash (tối ưu tốc độ), Pro (cân bằng), và Personalize (tùy chỉnh Gems).</p>
+                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                            <li>Flash: Mô hình tối ưu cho tốc độ và hiệu quả chi phí, phù hợp với các tác vụ yêu cầu phản hồi nhanh trong thời gian thực.</li>
+                            <li>Pro: Mô hình cân bằng giữa hiệu suất và khả năng, dùng cho các tác vụ tổng quát, phức tạp hơn.</li>
+                            <li>Personalize: (Tên được hiểu từ ngữ cảnh, có thể là "Gems" hoặc các tùy chỉnh cá nhân hóa) Cho phép người dùng tùy chỉnh AI với dữ liệu và vai trò riêng biệt để phục vụ các tác vụ chuyên biệt, ví dụ như tạo content theo phong cách cá nhân hoặc cho một mục đích cụ thể.</li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072;">
+                        <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Khu vực nhập prompt và các tùy chọn tính năng</h5>
+                        <img src="https://placehold.co/800x300/B0BEC5/FFFFFF?text=Khu+nhap+prompt+va+tuy+chon" alt="Khu vực nhập prompt và tùy chọn tính năng" style="width: 800px; height: 300px; display: block; margin: 0 auto; border-radius: 0.5rem; object-fit: contain; margin-bottom: 0.5rem;">
+                        <p style="font-size: 0.875rem; color: #4A5568; text-align: center;">Khu vực chính để bạn nhập câu lệnh (prompt) và các nút tính năng bổ trợ như Deep Research, Canvas, Video, và thêm tệp. (Kích thước: 800x300px)</p>
+                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                            <li>Ô nhập Prompt: Nơi bạn nhập câu lệnh hoặc yêu cầu cho AI.</li>
+                            <li>Deep Research: Tính năng nghiên cứu chuyên sâu, cho phép AI tìm kiếm và tổng hợp thông tin chi tiết từ các nguồn mở rộng.</li>
+                            <li>Canvas: Môi trường làm việc tương tác để phác thảo ý tưởng, tổ chức thông tin hoặc tạo nội dung trực quan (ví dụ: sơ đồ, bản vẽ).</li>
+                            <li>Video (tạo video với Veo 3): Tùy chọn để tạo các video chuyên nghiệp từ văn bản hoặc hình ảnh với công cụ Veo 3 tiên tiến.</li>
+                            <li>+ Thêm tệp: Nút để tải lên hoặc kết nối các loại tệp khác nhau:
+                                <ul style="list-style-type: circle; list-style-position: inside; margin-left: 1.5rem; font-size: 0.95rem;">
+                                    <li>Tải tệp lên: Upload tài liệu, hình ảnh, âm thanh trực tiếp từ thiết bị của bạn.</li>
+                                    <li>Thêm tệp từ Drive: Kết nối và sử dụng các tài liệu đã lưu trên Google Drive.</li>
+                                    <li>Thêm mã code: Chèn đoạn mã code để AI phân tích, tối ưu hoặc tiếp tục phát triển.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                     <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072;">
+                        <h5 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Thanh sidebar và khu vực quản lý tệp/thông tin người dùng</h5>
+                        <img src="https://placehold.co/800x450/B0BEC5/FFFFFF?text=Thanh+sidebar+va+khu+vuc+quan+ly" alt="Thanh sidebar và khu vực quản lý tệp/thông tin người dùng" style="width: 800px; height: 450px; display: block; margin: 0 auto; border-radius: 0.5rem; object-fit: contain; margin-bottom: 0.5rem;">
+                        <p style="font-size: 0.875rem; color: #4A5568; text-align: center;">Tổng quan giao diện Gemini bao gồm sidebar bên trái, khu vực quản lý tệp đã tạo/tải lên, thông tin phiên bản và avatar người dùng, cùng nút cài đặt. (Kích thước: 800x450px)</p>
+                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                            <li>Thanh sidebar bên trái: Chứa lịch sử các cuộc trò chuyện (Hoạt động), thông tin đã lưu, và các ứng dụng hoặc Gems đã tạo.</li>
+                            <li>Khu vực trên cùng bên phải: Hiển thị các tệp tin mà bạn đã tạo (ví dụ: nội dung, báo cáo) và các tệp tin đã tải lên trong cuộc trò chuyện hiện tại. Đồng thời hiển thị tên phiên bản Gemini bạn đang sử dụng (Pro, Ultra, Miễn phí) và ảnh đại diện/avatar của người dùng.</li>
+                            <li>Nút cài đặt (dưới góc trái cùng): Mở ra menu tùy chọn để quản lý gói thuê bao, gửi ý kiến phản hồi, trợ giúp, điều chỉnh giao diện, và các đường liên kết công khai của bạn.</li>
+                        </ul>
+                    </div>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">3.2. Gemini trong quản lý công việc và cuộc sống cá nhân</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Quản lý lịch trình thông minh:** Đặt lịch hẹn, cá nhân hóa lịch làm việc.</li>
-                        <li>**Tối ưu hóa giao tiếp:** Soạn thảo email chuyên nghiệp và nhanh chóng.</li>
-                        <li>**Quản lý tài liệu hiệu quả:** Tối ưu hóa Google Drive và Google Photos với AI.</li>
+                        <li>Quản lý lịch trình thông minh: Đặt lịch hẹn, cá nhân hóa lịch làm việc.</li>
+                        <li>Tối ưu hóa giao tiếp: Soạn thảo email chuyên nghiệp và nhanh chóng.</li>
+                        <li>Quản lý tài liệu hiệu quả: Tối ưu hóa Google Drive và Google Photos với AI.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #4F6F52;">3.3. Ứng dụng Gemini trong phân tích dữ liệu</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Trực quan hóa dữ liệu:** Tạo Dashboard báo cáo ấn tượng.</li>
-                        <li>**Định hướng và gợi ý phân tích:** Để dữ liệu "lên tiếng" và đưa ra insight giá trị.</li>
+                        <li>Trực quan hóa dữ liệu: Tạo Dashboard báo cáo ấn tượng.</li>
+                        <li>Định hướng và gợi ý phân tích: Để dữ liệu "lên tiếng" và đưa ra insight giá trị.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #4F6F52;">3.4. Gemini và sáng tạo đa phương tiện</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Biên tập hình ảnh:** Tạo công cụ chỉnh sửa hình ảnh theo ý muốn.</li>
-                        <li>**Sản xuất video chất lượng:** Tạo video chuyên nghiệp với Veo 3.</li>
-                        <li>**Nghệ thuật tạo hình ảnh:** Biến ý tưởng thành hình ảnh với Imagine 4.</li>
-                        <li>**Sáng tạo âm thanh:** Tạo nhạc, hiệu ứng với Lyria 2.</li>
-                        <li>**Trổ tài DJ:** Pha trộn âm nhạc và tạo bản phối với MusicFX DJ.</li>
+                        <li>Biên tập hình ảnh: Tạo công cụ chỉnh sửa hình ảnh theo ý muốn.</li>
+                        <li>Sản xuất video chất lượng: Tạo video chuyên nghiệp với Veo 3.</li>
+                        <li>Nghệ thuật tạo hình ảnh: Biến ý tưởng thành hình ảnh với Imagine 4.</li>
+                        <li>Sáng tạo âm thanh: Tạo nhạc, hiệu ứng với Lyria 2.</li>
+                        <li>Trổ tài DJ: Pha trộn âm nhạc và tạo bản phối với MusicFX DJ.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">3.5. Thiết kế Chatbot cá nhân hóa với Gemini (Gems)</h3>
                     <p style="color: #4A5568; margin-bottom: 1rem;">
                         Gemini (Gems) cho phép bạn tạo các chatbot tùy chỉnh, phục vụ mục đích cá nhân hoặc chuyên nghiệp, giúp tự động hóa các tác vụ và cung cấp thông tin nhanh chóng, hiệu quả.
                     </p>
-                    <div style="display: flex; flex-direction: column; gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072;">
-                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Lợi ích khi tạo Chatbot với Gemini Gems:</h4>
-                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                            <li>**Tiết kiệm thời gian:** Tự động hóa các tác vụ lặp lại, trả lời câu hỏi thường gặp.</li>
-                            <li>**Tăng cường hiệu suất:** Xử lý nhanh chóng các yêu cầu, giải phóng thời gian cho công việc phức tạp hơn.</li>
-                            <li>**Cá nhân hóa:** Tạo ra chatbot với phong cách và kiến thức chuyên biệt cho nhu cầu của bạn.</li>
-                            <li>**Tính khả dụng 24/7:** Chatbot luôn sẵn sàng hỗ trợ mọi lúc.</li>
-                            <li>**Tối ưu hóa nội dung:** Hỗ trợ tạo và tối ưu nội dung theo yêu cầu.</li>
-                        </ul>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072;">
+                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem; grid-column: 1 / -1;">Lợi ích khi tạo Chatbot với Gemini Gems:</h4>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">⏱️</span>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Tiết kiệm thời gian: Tự động hóa các tác vụ lặp lại, trả lời câu hỏi thường gặp.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">⚡</span>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Tăng cường hiệu suất: Xử lý nhanh chóng các yêu cầu, giải phóng thời gian cho công việc phức tạp hơn.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">👤</span>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Cá nhân hóa: Tạo ra chatbot với phong cách và kiến thức chuyên biệt cho nhu cầu của bạn.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">🌐</span>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Tính khả dụng 24/7: Chatbot luôn sẵn sàng hỗ trợ mọi lúc.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 1.5rem;">✍️</span>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Tối ưu hóa nội dung: Hỗ trợ tạo và tối ưu nội dung theo yêu cầu.</p>
+                        </div>
                     </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072; margin-top: 1.5rem;">
-                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Ứng dụng điển hình: Tạo content Facebook với Gems</h4>
-                        <p style="color: #4A5568;">
-                            Đối với những người thường xuyên đăng bài Facebook (nhà quản lý cộng đồng, người bán hàng online, nhà tiếp thị nội dung), Gems có thể trở thành trợ lý đắc lực giúp bạn:
-                        </p>
-                        <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                            <li>**Tạo ý tưởng bài viết:** Chỉ cần cung cấp chủ đề, Gems sẽ gợi ý các ý tưởng độc đáo.</li>
-                            <li>**Soạn thảo nội dung bài đăng:** Từ status ngắn gọn đến bài viết dài, Gems có thể viết theo nhiều giọng điệu (vui vẻ, chuyên nghiệp, truyền cảm hứng...).</li>
-                            <li>**Gợi ý hashtag phù hợp:** Tối ưu hóa khả năng tiếp cận bài viết.</li>
-                            <li>**Viết caption cho hình ảnh/video:** Tạo các mô tả hấp dẫn và thu hút.</li>
-                            <li>**Điều chỉnh phong cách và giọng điệu:** Đảm bảo bài viết phù hợp với thương hiệu cá nhân hoặc doanh nghiệp.</li>
-                        </ul>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072; margin-top: 1.5rem;">
+                        <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem; grid-column: 1 / -1;">Ứng dụng điển hình: Tạo content Facebook với Gems</h4>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <img src="https://placehold.co/60x60/A9B5A9/FFFFFF?text=💡" alt="Biểu tượng Ý tưởng" style="width: 60px; height: 60px; border-radius: 0.25rem; object-fit: contain;">
+                            <h5 style="font-size: 1rem; font-weight: 600; color: #262626;">Tạo ý tưởng bài viết</h5>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Chỉ cần cung cấp chủ đề, Gems sẽ gợi ý các ý tưởng độc đáo.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <img src="https://placehold.co/60x60/A9B5A9/FFFFFF?text=📝" alt="Biểu tượng Soạn thảo" style="width: 60px; height: 60px; border-radius: 0.25rem; object-fit: contain;">
+                            <h5 style="font-size: 1rem; font-weight: 600; color: #262626;">Soạn thảo nội dung bài đăng</h5>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Từ status ngắn gọn đến bài viết dài, Gems có thể viết theo nhiều giọng điệu.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <img src="https://placehold.co/60x60/A9B5A9/FFFFFF?text=#️⃣" alt="Biểu tượng Hashtag" style="width: 60px; height: 60px; border-radius: 0.25rem; object-fit: contain;">
+                            <h5 style="font-size: 1rem; font-weight: 600; color: #262626;">Gợi ý hashtag phù hợp</h5>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Tối ưu hóa khả năng tiếp cận bài viết trên Facebook.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <img src="https://placehold.co/60x60/A9B5A9/FFFFFF?text=🖼️" alt="Biểu tượng Media" style="width: 60px; height: 60px; border-radius: 0.25rem; object-fit: contain;">
+                            <h5 style="font-size: 1rem; font-weight: 600; color: #262626;">Viết caption cho hình ảnh/video</h5>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Tạo các mô tả hấp dẫn và thu hút cho nội dung đa phương tiện.</p>
+                        </div>
+                        <div class="glass-card" style="padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.5rem;">
+                            <img src="https://placehold.co/60x60/A9B5A9/FFFFFF?text=🎨" alt="Biểu tượng Phong cách" style="width: 60px; height: 60px; border-radius: 0.25rem; object-fit: contain;">
+                            <h5 style="font-size: 1.5rem; font-weight: 600; color: #262626;">Điều chỉnh phong cách & giọng điệu</h5>
+                            <p style="color: #4A5568; font-size: 0.875rem;">Đảm bảo bài viết phù hợp với thương hiệu cá nhân hoặc doanh nghiệp.</p>
+                        </div>
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 1rem; background-color: #F8F7F4; padding: 1rem; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1); border-left: 4px solid #739072; margin-top: 1.5rem;">
                         <h4 style="font-size: 1.125rem; font-weight: 700; color: #4F6F52; margin-bottom: 0.5rem;">Hướng dẫn cách làm Chatbot với Gems (tạo content Facebook):</h4>
                         <ul style="list-style-type: decimal; list-style-position: inside; color: #4A5568; margin-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <li>**Bước 1: Xác định mục tiêu của Chatbot:**
+                            <li>Bước 1: Xác định mục tiêu của Chatbot:
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Bạn muốn chatbot giúp tạo loại nội dung gì? (Ví dụ: bài đăng bán hàng, status chia sẻ kiến thức, caption ảnh du lịch...). Xác định rõ đối tượng mục tiêu của bài đăng Facebook của bạn.</p>
                             </li>
-                            <li>**Bước 2: Truy cập Gemini và tạo Gem mới:**
+                            <li>Bước 2: Truy cập Gemini và tạo Gem mới:
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Đăng nhập vào Gemini (nếu chưa có tài khoản, hãy đăng ký). Tìm mục "Tạo Gem" hoặc "Custom AI" để bắt đầu thiết lập chatbot.</p>
                             </li>
-                            <li>**Bước 3: Hướng dẫn vai trò và mục tiêu cho Gems:**
+                            <li>Bước 3: Hướng dẫn vai trò và mục tiêu cho Gems:
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Cung cấp cho Gems một "vai trò" cụ thể. Ví dụ: "Bạn là một chuyên gia marketing nội dung Facebook, chuyên tạo các bài đăng thu hút tương tác cho các cửa hàng thời trang."</p>
                             </li>
-                            <li>**Bước 4: Cung cấp dữ liệu huấn luyện (nếu cần):**
+                            <li>Bước 4: Cung cấp dữ liệu huấn luyện (nếu cần):
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Để Gems hiểu phong cách của bạn, hãy tải lên một số bài đăng Facebook mẫu mà bạn thấy hiệu quả, hoặc các ghi chú về sản phẩm/dịch vụ của bạn. Điều này giúp Gems tạo ra nội dung phù hợp và nhất quán.</p>
                             </li>
-                            <li>**Bước 5: Thiết lập các câu lệnh mẫu (Prompt Templates):**
+                            <li>Bước 5: Thiết lập các câu lệnh mẫu (Prompt Templates):
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Tạo các prompt mẫu mà bạn sẽ dùng thường xuyên. Ví dụ:
                                     <ul style="list-style-type: circle; list-style-position: inside; margin-left: 1rem; font-size: 0.9rem;">
                                         <li>"Viết bài đăng Facebook về [Tên sản phẩm/dịch vụ] với giọng điệu [Giọng điệu], tập trung vào lợi ích [Lợi ích chính]. Gợi ý 5 hashtag."</li>
@@ -812,10 +856,10 @@
                                     </ul>
                                 </p>
                             </li>
-                            <li>**Bước 6: Kiểm tra và tinh chỉnh:**
+                            <li>Bước 6: Kiểm tra và tinh chỉnh:
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Bắt đầu sử dụng Gems bằng cách nhập các prompt của bạn. Đánh giá chất lượng của nội dung được tạo ra. Nếu cần, hãy điều chỉnh vai trò, dữ liệu huấn luyện, hoặc các câu lệnh mẫu để Gems cho ra kết quả tốt hơn.</p>
                             </li>
-                            <li>**Bước 7: Tích hợp (Tùy chọn):**
+                            <li>Bước 7: Tích hợp (Tùy chọn):
                                 <p style="margin-left: 1.5rem; font-size: 0.95rem;">Nếu bạn sử dụng các công cụ quản lý mạng xã hội, hãy xem xét khả năng tích hợp của Gems (qua API nếu có) để tự động hóa quy trình đăng bài.</p>
                             </li>
                         </ul>
@@ -839,22 +883,22 @@
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">4.1. Giới thiệu ChatGPT và các khả năng tương tác</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Tổng quan về ChatGPT:** Các khả năng cơ bản và nâng cao.</li>
-                        <li>**Tương tác giọng nói:** ChatGPT Voice Chat.</li>
-                        <li>**Sáng tạo hình ảnh:** Tạo hình ảnh trực tiếp với ChatGPT.</li>
+                        <li>Tổng quan về ChatGPT: Các khả năng cơ bản và nâng cao.</li>
+                        <li>Tương tác giọng nói: ChatGPT Voice Chat.</li>
+                        <li>Sáng tạo hình ảnh: Tạo hình ảnh trực tiếp với ChatGPT.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">4.2. Ứng dụng ChatGPT trong phân tích dữ liệu</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Trực quan hóa dữ liệu:** Biến số liệu khô khan thành biểu đồ dễ hiểu.</li>
-                        <li>**Phân tích chỉ số:** Nhận diện và đánh giá các chỉ số quan trọng.</li>
+                        <li>Trực quan hóa dữ liệu: Biến số liệu khô khan thành biểu đồ dễ hiểu.</li>
+                        <li>Phân tích chỉ số: Nhận diện và đánh giá các chỉ số quan trọng.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">4.3. ChatGPT trong hỗ trợ công việc và cuộc sống hàng ngày</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Lập kế hoạch thông minh:** Cá nhân và dự án dài hạn.</li>
-                        <li>**Biên bản cuộc họp:** Hỗ trợ viết biên bản nhanh chóng, chính xác.</li>
-                        <li>**Tăng cường thuyết trình:** Hỗ trợ chuẩn bị nội dung và bố cục thuyết trình.</li>
+                        <li>Lập kế hoạch thông minh: Cá nhân và dự án dài hạn.</li>
+                        <li>Biên bản cuộc họp: Hỗ trợ viết biên bản nhanh chóng, chính xác.</li>
+                        <li>Tăng cường thuyết trình: Hỗ trợ chuẩn bị nội dung và bố cục thuyết trình.</li>
                     </ul>
 
                     <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">4.4. Các công cụ mở rộng và tùy chỉnh trong ChatGPT</h3>
@@ -881,17 +925,17 @@
                         Chương này giới thiệu NotebookLM như một trợ lý nghiên cứu mạnh mẽ, đồng thời khám phá tiềm năng của lập trình No-code với AI, giúp bạn tạo ra các ứng dụng mà không cần viết một dòng mã nào.
                     </p>
 
-                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">5.1. NotebookLM: Nền tảng phân tích và tổng hợp dữ liệu nâng cao</h3>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #4F6F52;">5.1. NotebookLM: Nền tảng phân tích và tổng hợp dữ liệu nâng cao</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                        <li>**Tổng hợp dữ liệu đa nguồn:** Từ tài liệu, ghi chú, trang web...</li>
-                        <li>**Tóm tắt thông tin:** Chắt lọc nội dung chính nhanh chóng.</li>
-                        <li>**Tạo sơ đồ tư duy:** Sắp xếp ý tưởng trực quan từ dữ liệu.</li>
-                        <li>**Phân tích dữ liệu cho báo cáo:** Hỗ trợ viết báo cáo chuyên sâu.</li>
-                        <li>**Trích nguồn dữ liệu:** Đảm bảo tính minh bạch và độ tin cậy.</li>
-                        <li>**Sáng tạo Podcast:** Biến dữ liệu thành nội dung âm thanh hấp dẫn.</li>
+                        <li>Tổng hợp dữ liệu đa nguồn: Từ tài liệu, ghi chú, trang web...</li>
+                        <li>Tóm tắt thông tin: Chắt lọc nội dung chính nhanh chóng.</li>
+                        <li>Tạo sơ đồ tư duy: Sắp xếp ý tưởng trực quan từ dữ liệu.</li>
+                        <li>Phân tích dữ liệu cho báo cáo: Hỗ trợ viết báo cáo chuyên sâu.</li>
+                        <li>Trích nguồn dữ liệu: Đảm bảo tính minh bạch và độ tin cậy.</li>
+                        <li>Sáng tạo Podcast: Biến dữ liệu thành nội dung âm thanh hấp dẫn.</li>
                     </ul>
 
-                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #4F6F52;">5.2. Khám phá các ứng dụng lập trình No-Code với AI</h3>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #4F6F52;">5.2. Khám phá các ứng dụng lập trình No-Code với AI</h3>
                     <ul style="list-style-type: disc; list-style-position: inside; color: #4A5568; margin-bottom: 1.5rem; padding-left: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
                         <li>Giới thiệu khái niệm và lợi ích của lập trình No-Code.</li>
                         <li>Tạo ra các chương trình và ứng dụng cơ bản mà không cần viết code (trong Gemini hoặc ChatGPT).</li>
@@ -933,73 +977,16 @@
         </div> <!-- End of main-content-area -->
 
     </div> <!-- End of app-container -->
-    </div> <!-- End of app-container -->
-    </div> <!-- End of app-container -->
-  
     
-    </main>
-
-    <!-- ======================= 3. FOOTER SECTION (LIQUID GLASS STYLE) ======================= -->
-   <footer id="floating-footer" class="custom-shadow bg-white/25 backdrop-blur-xl text-gray-800 fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl transition-all duration-500 border border-white/30 opacity-0 invisible">
-        <div class="max-w-6xl mx-auto px-6 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-                <!-- Cột 1: Giới thiệu -->
-                <div class="flex flex-col items-center md:items-start">
-                    <a href="#" class="mb-4">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="MinhTrietEras" class="h-10 w-auto mx-auto md:mx-0">
-                    </a>
-                    <p class="text-gray-600 text-sm">MinhTrietEras</p>
-                </div>
-                
-                <!-- Cột 2: Thông tin liên hệ -->
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Thông tin</h3>
-                    <ul class="space-y-3 text-sm text-gray-600">
-                        <li class="flex items-center justify-center md:justify-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-3 flex-shrink-0"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.1.4-.223.654-.369.39-.23.835-.487 1.305-.765l.004-.002a10.998 10.998 0 001.916-1.124A22.952 22.952 0 0016.92 12c.381-.463.73-1.004 1.002-1.595a6.45 6.45 0 00.375-3.32C18.312 4.47 16.596 2 14.22 2 12.516 2 11.053 3.053 10 4.544 8.947 3.053 7.484 2 5.78 2 3.404 2 1.688 4.47 1.688 7.085c0 1.28.32 2.479.882 3.595.275.54.595 1.07.958 1.558a22.952 22.952 0 002.592 2.963 10.998 10.998 0 001.916 1.124l.004.002c.47.278.916.535 1.305.765.254.146.468.269.654.369a5.741 5.741 0 00.281.14l.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>
-                            <a href="https://www.google.com/maps/search/?api=1&query=Quận+7,+TP.+Hồ+Chí+Minh" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 transition-colors">Quận 7, TP. Hồ Chí Minh</a>
-                        </li>
-                        <li class="flex items-center justify-center md:justify-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-3 flex-shrink-0"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.528a1.5 1.5 0 01-1.465-1.175l-.716-3.223a1.5 1.5 0 01.44-1.597l.115-.115a1.5 1.5 0 00-2.121-2.121l-.115.115a1.5 1.5 0 01-1.597.44l-3.223-.716A1.5 1.5 0 013.5 6.028H2V3.5z" /></svg>
-                            <a href="tel:+84946426536" class="hover:text-indigo-600 transition-colors">+84 946 426 536</a>
-                        </li>
-                        <li class="flex items-center justify-center md:justify-start">
-                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-3 flex-shrink-0"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" /><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" /></svg>
-                            <a href="mailto:contact@leminhtriet.com" class="hover:text-indigo-600 transition-colors">contact@leminhtriet.com</a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Cột 3: Mạng xã hội -->
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Theo dõi</h3>
-                    <div class="flex justify-center md:justify-start space-x-4">
-                        <a href="https://www.messenger.com/t/minhtriet.info" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110">
-                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12s12-5.373 12-12S18.627 0 12 0zm1.75 17.14l-4.25-2.71l-5.01 2.51a.52.52 0 0 1-.72-.56l1.3-5.83l-4.49-3.9a.52.52 0 0 1 .29-.89l5.92-.51l2.21-5.59a.52.52 0 0 1 .94 0l2.21 5.59l5.92.51a.52.52 0 0 1 .29.89l-4.49 3.9l1.3 5.83a.52.52 0 0 1-.72.56z"/></svg>
-                        </a>
-                        <!-- <a href="https://x.com/tinhoctanbinh" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-indigo-600 transition-transform duration-300 hover:scale-110">
-                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
-                        </a> -->
-                    </div>
-                </div>
-            </div>
-            <div class="mt-8 pt-6 border-t border-gray-900/10 text-center text-xs text-gray-500">
-                 <p>&copy; Copyright ©2025 All rights reserved | by MinhTrietProduction</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Liên kết đến file JavaScript -->
-    <script src="assets/js/liquid_glass.js"></script>
-
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Data for resources table
             const resourcesData = [
                 { appname: 'Giáo trình AI cơ bản (PDF)', version: '1.0', link_truycap: '#', ten_hanhdong: 'Tải về' },
                 { appname: 'Bộ công cụ Prompt mẫu', version: '2024.Q2', link_truycap: '#', ten_hanhdong: 'Xem ngay' },
                 { appname: 'Video hướng dẫn cài đặt Gemini', version: '1.0', link_truycap: '#', ten_hanhdong: 'Xem ngay' },
-                { appname: 'Tài liệu sử dụng ChatGPT nâng cao', version: '1.1', link_truycap: '#', ten_hanhdong: 'Tải về' },
+                { appname: 'Tài liệu Gemini Pro & Ultra', version: 'Link', link_truycap: 'https://one.google.com/about/plans?hl=vi&g1_landing_page=0', ten_hanhdong: 'Truy cập' },
+                { appname: 'Tài liệu ChatGPT Plus & Pro', version: 'Link', link_truycap: 'https://openai.com/chatgpt/pricing/', ten_hanhdong: 'Truy cập' },
                 { appname: 'Bài tập thực hành NotebookLM', version: 'Beta', link_truycap: '#', ten_hanhdong: 'Tải về' },
                 { appname: 'Checklist tối ưu Prompt', version: '1.0', link_truycap: '#', ten_hanhdong: 'Tải về' },
                 { appname: 'Phần mềm AI No-code (dùng thử)', version: 'Pro Trial', link_truycap: '#', ten_hanhdong: 'Truy cập' }
@@ -1123,5 +1110,66 @@
             });
         });
     </script>
+            </div>
+
+        </div>
+                
+  
+  
+    
+    </main>
+
+    <!-- ======================= 3. FOOTER SECTION (LIQUID GLASS STYLE) ======================= -->
+   <footer id="floating-footer" class="custom-shadow bg-white/25 backdrop-blur-xl text-gray-800 fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl transition-all duration-500 border border-white/30 opacity-0 invisible">
+        <div class="max-w-6xl mx-auto px-6 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- Cột 1: Giới thiệu -->
+                <div class="flex flex-col items-center md:items-start">
+                    <a href="#" class="mb-4">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="MinhTrietEras" class="h-10 w-auto mx-auto md:mx-0">
+                    </a>
+                    <p class="text-gray-600 text-sm">MinhTrietEras</p>
+                </div>
+                
+                <!-- Cột 2: Thông tin liên hệ -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Thông tin</h3>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li class="flex items-center justify-center md:justify-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-3 flex-shrink-0"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.1.4-.223.654-.369.39-.23.835-.487 1.305-.765l.004-.002a10.998 10.998 0 001.916-1.124A22.952 22.952 0 0016.92 12c.381-.463.73-1.004 1.002-1.595a6.45 6.45 0 00.375-3.32C18.312 4.47 16.596 2 14.22 2 12.516 2 11.053 3.053 10 4.544 8.947 3.053 7.484 2 5.78 2 3.404 2 1.688 4.47 1.688 7.085c0 1.28.32 2.479.882 3.595.275.54.595 1.07.958 1.558a22.952 22.952 0 002.592 2.963 10.998 10.998 0 001.916 1.124l.004.002c.47.278.916.535 1.305.765.254.146.468.269.654.369a5.741 5.741 0 00.281.14l.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>
+                            <a href="https://www.google.com/maps/search/?api=1&query=Quận+7,+TP.+Hồ+Chí+Minh" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 transition-colors">Quận 7, TP. Hồ Chí Minh</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-3 flex-shrink-0"><path d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5h-1.528a1.5 1.5 0 01-1.465-1.175l-.716-3.223a1.5 1.5 0 01.44-1.597l.115-.115a1.5 1.5 0 00-2.121-2.121l-.115.115a1.5 1.5 0 01-1.597.44l-3.223-.716A1.5 1.5 0 013.5 6.028H2V3.5z" /></svg>
+                            <a href="tel:+84946426536" class="hover:text-indigo-600 transition-colors">+84 946 426 536</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-3 flex-shrink-0"><path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" /><path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" /></svg>
+                            <a href="mailto:contact@leminhtriet.com" class="hover:text-indigo-600 transition-colors">contact@leminhtriet.com</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Cột 3: Mạng xã hội -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Theo dõi</h3>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="https://www.messenger.com/t/minhtriet.info" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110">
+                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12s12-5.373 12-12S18.627 0 12 0zm1.75 17.14l-4.25-2.71l-5.01 2.51a.52.52 0 0 1-.72-.56l1.3-5.83l-4.49-3.9a.52.52 0 0 1 .29-.89l5.92-.51l2.21-5.59a.52.52 0 0 1 .94 0l2.21 5.59l5.92.51a.52.52 0 0 1 .29.89l-4.49 3.9l1.3 5.83a.52.52 0 0 1-.72.56z"/></svg>
+                        </a>
+                        <!-- <a href="https://x.com/tinhoctanbinh" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-indigo-600 transition-transform duration-300 hover:scale-110">
+                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-900/10 text-center text-xs text-gray-500">
+                 <p>&copy; Copyright ©2025 All rights reserved | by MinhTrietProduction</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Liên kết đến file JavaScript -->
+    <script src="assets/js/liquid_glass.js"></script>
 </body>
 </html>

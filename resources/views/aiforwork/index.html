@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương 1: Tổng quan về AI và các công cụ nền tảng</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS reset cơ bản và thiết lập font */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0; /* Màu chữ tổng thể */
+            background: linear-gradient(135deg, #2a003f, #001f3f); /* Nền gradient tối */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden; /* Ngăn chặn scroll ngang */
+            position: relative; /* Cho phép các phần tử con dùng position absolute */
+        }
+
+        /* Hiệu ứng nền bong bóng */
+        .bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0; /* Đảm bảo bong bóng nằm dưới nội dung */
+        }
+
+        .bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: bubble-flow 15s infinite ease-in-out;
+        }
+
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 18s; animation-delay: 0s; }
+        .bubble:nth-child(2) { width: 60px; height: 60px; left: 30%; animation-duration: 15s; animation-delay: 2s; }
+        .bubble:nth-child(3) { width: 80px; height: 80px; left: 50%; animation-duration: 20s; animation-delay: 4s; }
+        .bubble:nth-child(4) { width: 50px; height: 50px; left: 70%; animation-duration: 17s; animation-delay: 6s; }
+        .bubble:nth-child(5) { width: 70px; height: 70px; left: 90%; animation-duration: 19s; animation-delay: 8s; }
+        .bubble:nth-child(6) { width: 45px; height: 45px; left: 20%; animation-duration: 16s; animation-delay: 1s; }
+        .bubble:nth-child(7) { width: 65px; height: 65px; left: 45%; animation-duration: 14s; animation-delay: 3s; }
+        .bubble:nth-child(8) { width: 75px; height: 75px; left: 80%; animation-duration: 21s; animation-delay: 5s; }
+
+        @keyframes bubble-flow {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05); /* Nền kính mờ */
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+            backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+            -webkit-backdrop-filter: blur(10px); /* Tương thích Safari */
+            border: 1px solid rgba(255, 255, 255, 0.18); /* Viền mỏng */
+            z-index: 1; /* Đảm bảo nội dung nằm trên bong bóng */
+            margin: 40px 0; /* Khoảng cách trên dưới cho container */
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 {
+            color: #ffffff; /* Màu tiêu đề sáng */
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Hiệu ứng phát sáng nhẹ cho tiêu đề */
+        }
+
+        h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 600;
+            margin-top: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            text-align: left;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none; /* Bỏ dấu chấm mặc định */
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+
+        ul li::before {
+            content: '•'; /* Dùng dấu chấm tùy chỉnh */
+            color: #8aff8a; /* Màu xanh lá phát sáng */
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.08); /* Nền card kính mờ đậm hơn */
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển động mượt mà */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px) scale(1.01); /* Nhấc nhẹ lên và phóng to */
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4), 0 0 30px rgba(0, 255, 255, 0.2); /* Phát sáng xanh lam */
+            border-color: rgba(0, 255, 255, 0.5); /* Viền phát sáng */
+        }
+
+        .table-container {
+            overflow-x: auto; /* Cho phép cuộn ngang bảng trên màn hình nhỏ */
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden; /* Đảm bảo border-radius hoạt động */
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.15);
+            font-weight: 600;
+            color: #ffffff;
+            white-space: nowrap; /* Ngăn chặn chữ trong tiêu đề bị xuống dòng */
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Hover effect cho từng hàng */
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.15); /* Nền sáng hơn khi hover */
+        }
+
+        /* Hình ảnh nếu có, thiết kế responsive */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .back-to-home-button {
+            background: rgba(255, 255, 255, 0.15);
+            color: #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            text-decoration: none; /* Remove underline for links */
+        }
+
+        .back-to-home-button:hover {
+            background: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+            border-color: rgba(0, 255, 255, 0.7);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .back-to-home-button svg {
+            width: 1.25em;
+            height: 1.25em;
+            stroke: currentColor;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.6em; }
+            h3 { font-size: 1.3em; }
+            .container { padding: 20px; margin: 20px 0; }
+            th, td { padding: 10px; font-size: 0.9em; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.4em; }
+            h3 { font-size: 1.2em; }
+            .container { padding: 15px; margin: 15px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <div class="container">
+        <a class="back-to-home-button" href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            <span>Về Trang Chủ</span>
+        </a>
+        <div class="section-card">
+            <h2>Chương 1: Tổng quan về AI và các công cụ nền tảng</h2>
+            <p>Chương này cung cấp kiến thức nền tảng vững chắc về Trí tuệ Nhân tạo, từ định nghĩa cơ bản đến các ứng dụng rộng rãi trong kỷ nguyên số.</p>
+
+            <h3>1.1. Giới thiệu tổng quan về Trí tuệ Nhân tạo (AI)</h3>
+            <p>Trí tuệ Nhân tạo (AI) là một lĩnh vực khoa học máy tính rộng lớn, tập trung vào việc tạo ra các hệ thống hoặc máy móc có khả năng thực hiện các tác vụ đòi hỏi trí thông minh của con người.</p>
+            <ul>
+                <li><b>Khái niệm cơ bản về AI:</b> Tập hợp các công nghệ mô phỏng khả năng nhận thức của con người (Học máy, Học sâu, Xử lý ngôn ngữ tự nhiên, Thị giác máy tính, Robot học).</li>
+                <li><b>Vai trò và lợi ích của AI trong kỷ nguyên số:</b> Tự động hóa, tối ưu hóa hiệu suất, hỗ trợ cá nhân (quản lý lịch trình, tìm kiếm), cải thiện dịch vụ khách hàng (chatbot).</li>
+            </ul>
+
+            <h3>1.2. Khám phá các công cụ AI phổ biến</h3>
+            <p>Sự phát triển nhanh chóng của AI đã tạo ra một hệ sinh thái đa dạng các công cụ, từ các mô hình ngôn ngữ lớn (Large Language Models - LLMs) đến các ứng dụng chuyên biệt. Việc nắm bắt các công cụ này là cần thiết để ứng dụng AI hiệu quả.</p>
+            <p><b>Tổng quan về các nền tảng AI hàng đầu & So sánh các mô hình: Trả phí và miễn phí</b></p>
+            <p>Dưới đây là bảng tổng hợp các công cụ AI phổ biến được đề cập trong khóa học, cùng với các phiên bản và mức giá ước tính (thông tin có thể thay đổi tùy thời điểm).</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Công cụ AI</th>
+                            <th>Phiên bản</th>
+                            <th>Tính năng nổi bật</th>
+                            <th>Giá cả (ước tính)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Google Gemini</td>
+                            <td>Miễn phí</td>
+                            <td>Gói cá nhân, sử dụng cơ bản. Truy cập mô hình Gemini Pro.</td>
+                            <td>Miễn phí</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Pro (Google AI Pro)</td>
+                            <td>Truy cập mô hình 2.5 Pro mạnh nhất & Deep Research. Tạo video hạn chế với Veo 3 Fast, Flow (công cụ làm phim AI với Veo 3), Whisk (tạo video từ ảnh với Veo 2). 1.000 tín dụng AI/tháng cho Flow/Whisk. (Chỉ tại Mỹ) Tích hợp sâu Gemini trong Gmail, Tài liệu, Drive, Photos, và Chrome. 2TB bộ nhớ dùng chung.</td>
+                            <td>489.000₫/tháng (miễn phí tháng đầu)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Ultra (Google AI Ultra)</td>
+                            <td>Tất cả lợi ích gói Pro. Hạn mức cao nhất & độc quyền truy cập 2.5 Pro Deep Think (sắp ra mắt), Veo 3 (mô hình tạo video mới nhất). Hạn mức cao nhất cho Flow và Whisk, 12.500 tín dụng AI/tháng. (Chỉ tại Mỹ) Hạn mức cao nhất NotebookLM và các chức năng tốt nhất (sắp ra mắt). Quyền tiếp cận sớm Project Mariner (nguyên mẫu tác nhân AI). Gói YouTube Premium cá nhân. 30TB bộ nhớ dùng chung. Có thể chia sẻ với 5 thành viên khác trong gia đình.</td>
+                            <td>6.000.000₫/tháng (3.000.000₫/tháng cho 3 tháng đầu)</td>
+                        </tr>
+                        <tr>
+                            <td>OpenAI ChatGPT</td>
+                            <td>Miễn phí</td>
+                            <td>Truy cập GPT-4.1 mini. Dữ liệu thời gian thực từ web với tìm kiếm. Truy cập hạn chế GPT-4o, OpenAI 04-mini, và nghiên cứu chuyên sâu. Truy cập hạn chế tải tệp, phân tích dữ liệu, tạo hình ảnh, và chế độ giọng nói. Chỉnh sửa code với ứng dụng ChatGPT desktop cho macOS. Sử dụng Custom GPTs.</td>
+                            <td>$0/tháng</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Plus</td>
+                            <td>Tất cả tính năng của gói Miễn phí. Giới hạn mở rộng cho tin nhắn, tải tệp, phân tích dữ liệu và tạo hình ảnh. Chế độ giọng nói tiêu chuẩn và nâng cao với video và chia sẻ màn hình. Truy cập nghiên cứu chuyên sâu và nhiều mô hình suy luận (OpenAI 03, OpenAI 04-mini, và OpenAI 04-mini-high). Truy cập bản xem trước nghiên cứu của GPT-4.5 và GPT-4.1 (tối ưu cho tác vụ code). Tạo và sử dụng các dự án, tác vụ, và Custom GPTs. Cơ hội thử nghiệm các tính năng mới.</td>
+                            <td>$20 USD/tháng</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Pro</td>
+                            <td>Tất cả tính năng của gói Plus. Truy cập không giới hạn vào tất cả các mô hình suy luận và GPT-4o. Truy cập không giới hạn vào chế độ giọng nói nâng cao, với giới hạn cao hơn cho video và chia sẻ màn hình. Truy cập OpenAI 03-pro, sử dụng nhiều sức mạnh tính toán hơn để có câu trả lời tốt nhất cho các câu hỏi khó nhất. Truy cập mở rộng vào nghiên cứu chuyên sâu. Truy cập mở rộng vào tạo video Sora. Truy cập bản xem trước nghiên cứu của Operator và Codex agent. Không giới hạn sử dụng (tùy thuộc vào các quy định chống lạm dụng).</td>
+                            <td>$200 USD/tháng</td>
+                        </tr>
+                        <tr>
+                            <td>Google NotebookLM</td>
+                            <td>Miễn phí</td>
+                            <td>Được xây dựng bằng các mô hình Gemini mới nhất. Tải lên tệp PDF, trang web, tệp Google Tài liệu và Trang trình bày, URL YouTube, v.v. Tạo bản tóm tắt, Câu hỏi thường gặp, dòng thời gian và tài liệu tóm tắt bằng một lần nhấp. Tạo bản Tổng quan bằng âm thanh và nghe khi di chuyển. Đặt câu hỏi để có thông tin chi tiết hơn và nhận câu trả lời kèm nguồn trích dẫn.</td>
+                            <td>Miễn phí (yêu cầu tài khoản Google)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Pro</td>
+                            <td>Tất cả tính năng của phiên bản Miễn phí. Nhận bản Tổng quan bằng âm thanh, sổ ghi chú, câu hỏi và các nguồn cho mỗi sổ ghi chú nhiều gấp 5 lần. Tuỳ chỉnh phong cách và độ dài cho câu trả lời liên quan đến sổ ghi chú. Tạo sổ ghi chú dùng chung cho nhóm của bạn và nhận số liệu phân tích về mức sử dụng. Tăng cường bảo mật và quyền riêng tư.</td>
+                            <td>Tích hợp trong Google AI Pro trở lên</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Hướng dẫn tìm kiếm và xác định công cụ AI phù hợp:</h3>
+            <p>Việc tìm kiếm và lựa chọn công cụ AI phù hợp với mục tiêu cá nhân là một quá trình cần được thực hiện một cách có hệ thống.</p>
+            <ul>
+                <li><b>Bước 1: Xác định rõ nhu cầu và mục tiêu của bạn</b> Đây là bước khởi đầu quan trọng nhất. Bạn cần AI để giải quyết vấn đề gì? Hãy liệt kê càng cụ thể càng tốt các tác vụ mà bạn muốn AI hỗ trợ:</li>
+                <ul>
+                    <li>Bạn có muốn AI hỗ trợ viết lách (viết email, báo cáo, bài luận, kịch bản...)?</li>
+                    <li>Bạn cần AI để phân tích dữ liệu (tạo biểu đồ, tìm xu hướng, đưa ra insight từ bảng tính...)?</li>
+                    <li>Bạn mong muốn AI giúp thiết kế đồ họa (tạo ảnh, chỉnh sửa ảnh, phác thảo ý tưởng...)?</li>
+                    <li>Bạn muốn AI hỗ trợ lập kế hoạch (lịch trình cá nhân, dự án dài hạn, quản lý công việc...)?</li>
+                    <li>Bạn tìm kiếm AI để hỗ trợ học tập và nghiên cứu (tóm tắt tài liệu, đặt câu hỏi, tạo sơ đồ tư duy...)?</li>
+                    <li>Bạn có cần AI để dịch thuật hoặc sáng tạo nội dung đa phương tiện (video, âm thanh)?</li>
+                </ul>
+                <li>Việc xác định rõ mục tiêu sẽ giúp bạn thu hẹp phạm vi các công cụ tiềm năng và tránh lãng phí thời gian vào những lựa chọn không phù hợp.</li>
+                <li><b>Bước 2: Tìm hiểu và so sánh toàn diện các công cụ</b> Khi đã có danh sách nhu cầu, hãy bắt đầu tìm hiểu các công cụ AI trên thị trường:</li>
+                <ul>
+                    <li>Đọc đánh giá và bài viết chuyên sâu: Tìm kiếm các bài viết so sánh, đánh giá từ các trang công nghệ, blog chuyên ngành uy tín.</li>
+                    <li>Xem video hướng dẫn và demo: YouTube và các nền tảng học trực tuyến có rất nhiều video giới thiệu và hướng dẫn sử dụng từng công cụ. Việc xem demo thực tế sẽ giúp bạn hình dung rõ hơn về giao diện và cách thức hoạt động.</li>
+                    <li>Tham gia cộng đồng AI: Các diễn đàn, nhóm mạng xã hội (Facebook Groups, Reddit, Discord) là nơi tuyệt vời để đặt câu hỏi, lắng nghe kinh nghiệm từ những người dùng khác có nhu cầu tương tự bạn. Họ có thể chia sẻ những mẹo và lời khuyên quý giá.</li>
+                    <li>Lưu ý các tính năng tích hợp: Nếu bạn đã sử dụng một hệ sinh thái cụ thể (ví dụ: Google Workspace, Microsoft 365), hãy ưu tiên các công cụ AI có khả năng tích hợp sâu rộng vào hệ sinh thái đó để tối ưu hóa quy trình làm việc.</li>
+                </ul>
+                <li><b>Bước 3: Trải nghiệm thực tế (Hands-on experience)</b> Lý thuyết là một chuyện, thực hành lại là chuyện khác. Đa số các công cụ AI đều cung cấp phiên bản miễn phí hoặc bản dùng thử. Hãy tận dụng cơ hội này:</li>
+                <ul>
+                    <li>Đăng ký tài khoản miễn phí/dùng thử: Tự mình đăng ký và trải nghiệm trực tiếp các công cụ.</li>
+                    <li>Thực hiện các tác vụ nhỏ, cụ thể: Hãy thử yêu cầu AI thực hiện các tác vụ mà bạn đã xác định ở Bước 1. Ví dụ: nhờ AI viết một đoạn email, tóm tắt một bài báo, hoặc tạo một hình ảnh đơn giản.</li>
+                    <li>Đánh giá chất lượng đầu ra: Xem xét liệu kết quả có đáp ứng được kỳ vọng của bạn về độ chính xác, tính sáng tạo, và tính dễ hiểu hay không.</li>
+                    <li>Đánh giá trải nghiệm người dùng (UX): Giao diện có thân thiện không? Tốc độ phản hồi có nhanh không? Có dễ dàng để điều hướng và sử dụng các tính năng không?</li>
+                </ul>
+                <li><b>Bước 4: Xem xét yếu tố chi phí và giá trị lâu dài</b> Sau khi đã có cái nhìn tổng quan và trải nghiệm thực tế, hãy đưa ra quyết định cuối cùng:</li>
+                <ul>
+                    <li>So sánh lợi ích và chi phí: Đánh giá kỹ lưỡng giữa những lợi ích mà công cụ mang lại (tiết kiệm thời gian, tăng năng suất, chất lượng công việc) và chi phí bạn phải bỏ ra (nếu là phiên bản trả phí).</li>
+                    <li>Giá trị lâu dài: Liệu công cụ này có thể đồng hành cùng bạn trong dài hạn không? Có phù hợp với sự phát triển kỹ năng và mục tiêu nghề nghiệp của bạn trong tương lai không?</li>
+                    <li>Tối ưu hóa chi phí: Đôi khi, một công cụ miễn phí nhưng đáp ứng tốt 80% nhu cầu của bạn có thể hiệu quả hơn về mặt chi phí so với một công cụ trả phí đắt tiền mà bạn không khai thác hết tính năng.</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

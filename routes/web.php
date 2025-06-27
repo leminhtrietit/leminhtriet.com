@@ -122,3 +122,32 @@ Route::get('/tools', [PostController::class, 'tools'])->name('tools.index');
 Route::get('/test', function () {
     return view('tool');
 });
+
+// --- ROUTE CHO GIÁO TRÌNH AI ---
+Route::prefix('giao-trinh-ai')->name('course.')->group(function () {
+    // Trang chính của giáo trình
+    Route::get('/', function () {
+        return view('khoahoc.index');
+    })->name('index');
+
+    // Route cho từng chương
+    Route::get('/chuong-1-tong-quan', function () {
+        return view('khoahoc.chuong1');
+    })->name('chuong1');
+
+    Route::get('/chuong-2-nghe-thuat-prompt', function () {
+        return view('khoahoc.chuong2');
+    })->name('chuong2');
+
+    Route::get('/chuong-3-suc-manh-gemini', function () {
+        return view('khoahoc.chuong3');
+    })->name('chuong3');
+
+    Route::get('/chuong-4-ung-dung-chatgpt', function () {
+        return view('khoahoc.chuong4');
+    })->name('chuong4');
+
+    Route::get('/chuong-5-cong-cu-chuyen-biet', function () {
+        return view('khoahoc.chuong5');
+    })->name('chuong5');
+});
