@@ -1,0 +1,51 @@
+/* File: public/assets/css/falling-lights.css */
+
+/* Container chứa toàn bộ hiệu ứng, nằm cố định làm nền */
+#lights-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Đảm bảo các hạt không làm xuất hiện thanh cuộn */
+    z-index: -1; /* Đặt hiệu ứng nằm dưới tất cả các nội dung khác */
+    pointer-events: none; /* Cho phép click xuyên qua lớp hiệu ứng này */
+}
+
+/* Style cho từng hạt "cát" */
+.particle {
+    position: absolute;
+    bottom: -20px; /* Bắt đầu từ bên dưới màn hình */
+    border-radius: 50%;
+    
+    /* Sử dụng biến CSS để JS có thể thay đổi màu sắc một cách linh hoạt */
+    background: radial-gradient(circle, var(--color1), var(--color2));
+    
+    /* Animation chính */
+    animation: wind-blow linear infinite;
+    
+    opacity: 0; /* Bắt đầu với trạng thái vô hình */
+    box-shadow: 0 0 5px var(--color1), 0 0 10px var(--color2); /* Tạo hiệu ứng phát sáng nhẹ */
+}
+
+/* Đây là animation "gió thổi"
+  - translateY: di chuyển hạt từ dưới lên trên.
+  - translateX: di chuyển hạt qua lại trái-phải, tạo cảm giác lượn sóng.
+*/
+@keyframes wind-blow {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        /* Di chuyển lên trên cùng và lệch đi một khoảng ngẫu nhiên (var --x-drift) */
+        transform: translateY(-110vh) translateX(var(--x-drift));
+        opacity: 0;
+    }
+}

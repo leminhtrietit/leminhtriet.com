@@ -3,14 +3,18 @@ body {
         }
 
         body {
-            padding-top: 120px;
+           
             /* Padding-bottom sẽ được JS tính toán động */
              /* background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); */
-                background-image: linear-gradient(to bottom, #00ffff, #00ff99);
-
-             background-size: cover;
+                /* background-image: linear-gradient(to bottom, #00ffff, #00ff99); */
+            background-color: #ffffff;
+            background-size: cover;
             background-attachment: fixed;
             transition: padding-bottom 0.2s ease-out; /* Thêm hiệu ứng chuyển động mượt */
+        }
+        .body-with-padding {
+            padding-top: 120px;
+            /* ... */
         }
 
         /* Thêm box-shadow tùy chỉnh bạn cung cấp */

@@ -16,12 +16,16 @@
 
     <!-- Liên kết đến file CSS tùy chỉnh -->
     <link rel="stylesheet" href="{{ asset('assets/css/liquid_glass.css') }}">
+    <!-- Liên kết đến file CSS cát -->
+
+    <link rel="stylesheet" href="{{ asset('assets/css/falling-lights.css') }}">
 
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 text-gray-800 body-with-padding">
+    <div id="lights-container"></div>
 
     <!-- ======================= 1. NAVBAR SECTION (ADVANCED GLASS STYLE) ======================= -->
-    <header class="custom-shadow bg-white/25 backdrop-blur-xl fixed top-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl border border-white/30 transition-all duration-300 py-5">
+<header class="custom-shadow bg-[#79b5bb]/25 backdrop-blur-xl fixed top-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl border border-white/30 transition-all duration-300 py-5">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="{{ route('login') }}" class="text-2xl font-bold text-gray-900">
                 <img src="{{ asset('assets/images/logo.png') }}" alt="MinhTrietEras" class="h-10 w-auto">
@@ -57,24 +61,12 @@
                         <span class="font-medium text-gray-800 group-hover:text-gray-900">Download</span>
                     </div>
                 </a>
-
-                <!-- Google Calendar Appointment Scheduling begin -->
-<link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
-<script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
-<script>
-(function() {
-  var target = document.currentScript;
-  window.addEventListener('load', function() {
-    calendar.schedulingButton.load({
-      url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1IBcQOunErCs-s-ZDkuhAiPxgmOe-_M4WR6PvK1XxnJ7pvAj53AsDTkVVpDTbhoxqcTAYVzo6N?gv=true',
-      color: '#070954',
-      label: 'Booking',
-      target,
-    });
-  });
-})();
-</script>
-<!-- end Google Calendar Appointment Scheduling -->
+                <a href="{{ route('course.index') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1">
+                    <div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div>
+                    <div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/40 group-hover:border-white/40 transition-all duration-300">
+                        <span class="font-medium text-gray-800 group-hover:text-gray-900">AI Tutorials</span>
+                    </div>
+                </a>
             </nav>
             <button class="md:hidden text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,19 +78,13 @@
 
     <!-- ======================= 2. CONTENT SECTION (LIQUID GLASS STYLE) ======================= -->
     <main class="w-full">
-        <div class="max-w-6xl mx-auto px-6 py-12">
-            <div class="bg-white/80 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20">
 
                     @yield('content')
 
-            </div>
-
-        </div>
     </main>
 
     <!-- ======================= 3. FOOTER SECTION (LIQUID GLASS STYLE) ======================= -->
-<footer id="floating-footer" class="custom-shadow bg-white/25 backdrop-blur-xl text-gray-800 fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl transition-all duration-500 border border-white/30 opacity-0 invisible">
-        <div class="max-w-6xl mx-auto px-6 py-8">
+<footer id="floating-footer" class="custom-shadow bg-[#79b5bb]/25 backdrop-blur-xl text-gray-800 fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl transition-all duration-500 border border-white/30 opacity-0 invisible">        <div class="max-w-6xl mx-auto px-6 py-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                 <!-- Cột 1: Giới thiệu -->
                 <div class="flex flex-col items-center md:items-start">
@@ -132,8 +118,15 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Theo dõi</h3>
                     <div class="flex justify-center md:justify-start space-x-4">
                         <a href="https://www.messenger.com/t/minhtriet.info" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-transform duration-300 hover:scale-110">
-                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12s12-5.373 12-12S18.627 0 12 0zm1.75 17.14l-4.25-2.71l-5.01 2.51a.52.52 0 0 1-.72-.56l1.3-5.83l-4.49-3.9a.52.52 0 0 1 .29-.89l5.92-.51l2.21-5.59a.52.52 0 0 1 .94 0l2.21 5.59l5.92.51a.52.52 0 0 1 .29.89l-4.49 3.9l1.3 5.83a.52.52 0 0 1-.72.56z"/></svg>
+                           <img width="24" height="24" src="https://img.icons8.com/3d-fluency/94/facebook-messenger.png" alt="facebook-messenger"/>
                         </a>
+                                                <a href="https://zalo.me/0946426536" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-indigo-600 transition-transform duration-300 hover:scale-110">
+
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48">
+<path fill="#2962ff" d="M15,36V6.827l-1.211-0.811C8.64,8.083,5,13.112,5,19v10c0,7.732,6.268,14,14,14h10	c4.722,0,8.883-2.348,11.417-5.931V36H15z"></path><path fill="#eee" d="M29,5H19c-1.845,0-3.601,0.366-5.214,1.014C10.453,9.25,8,14.528,8,19	c0,6.771,0.936,10.735,3.712,14.607c0.216,0.301,0.357,0.653,0.376,1.022c0.043,0.835-0.129,2.365-1.634,3.742	c-0.162,0.148-0.059,0.419,0.16,0.428c0.942,0.041,2.843-0.014,4.797-0.877c0.557-0.246,1.191-0.203,1.729,0.083	C20.453,39.764,24.333,40,28,40c4.676,0,9.339-1.04,12.417-2.916C42.038,34.799,43,32.014,43,29V19C43,11.268,36.732,5,29,5z"></path><path fill="#2962ff" d="M36.75,27C34.683,27,33,25.317,33,23.25s1.683-3.75,3.75-3.75s3.75,1.683,3.75,3.75	S38.817,27,36.75,27z M36.75,21c-1.24,0-2.25,1.01-2.25,2.25s1.01,2.25,2.25,2.25S39,24.49,39,23.25S37.99,21,36.75,21z"></path><path fill="#2962ff" d="M31.5,27h-1c-0.276,0-0.5-0.224-0.5-0.5V18h1.5V27z"></path><path fill="#2962ff" d="M27,19.75v0.519c-0.629-0.476-1.403-0.769-2.25-0.769c-2.067,0-3.75,1.683-3.75,3.75	S22.683,27,24.75,27c0.847,0,1.621-0.293,2.25-0.769V26.5c0,0.276,0.224,0.5,0.5,0.5h1v-7.25H27z M24.75,25.5	c-1.24,0-2.25-1.01-2.25-2.25S23.51,21,24.75,21S27,22.01,27,23.25S25.99,25.5,24.75,25.5z"></path><path fill="#2962ff" d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5	c0.276,0,0.5-0.224,0.5-0.5v-1h-5.321L21,19h-0.026c0.163-0.211,0.276-0.463,0.276-0.75V18z"></path>
+</svg>
+
+                    </a>
                     </div>
                 </div>
             </div>

@@ -124,7 +124,12 @@ Route::get('/test', function () {
 });
 
 // --- ROUTE CHO GIÁO TRÌNH AI ---
-Route::prefix('giao-trinh-ai')->name('course.')->group(function () {
+Route::prefix('giao-trinh-ai')
+    ->name('course.')
+    ->middleware('protect_course')
+    ->group(function () 
+    
+    {
     // Trang chính của giáo trình
     Route::get('/', function () {
         return view('khoahoc.index');
@@ -151,3 +156,29 @@ Route::prefix('giao-trinh-ai')->name('course.')->group(function () {
         return view('khoahoc.chuong5');
     })->name('chuong5');
 });
+
+Route::get('/test-500', function () {
+    return redirect()->route('route.khong.ton.tai');
+});
+
+// File: routes/web.php
+
+// Route để hiển thị form nhập mật khẩu
+Route::get('/giao-trinh-ai/nhap-mat-khau', function () {
+    return view('khoahoc.password');
+})->name('course.password.form');
+
+// Route để xử lý việc kiểm tra mật khẩu
+Route::post('/giao-trinh-ai/kiem-tra-mat-khau', function (Illuminate\Http\Request $request) {
+    $correctPassword = env('COURSE_PASSWORD', 'minhtriet'); // Pro-tip: Lấy pass từ file .env
+
+    // Dùng hash_equals để so sánh an toàn hơn
+    if (hash_equals($correctPassword, $request->input('password'))) {
+        // Nếu đúng, lưu quyền vào session và chuyển hướng đến giáo trình
+        $request->session()->put('course_access_granted', true);
+        return redirect()->route('course.index');
+    }
+
+    // Nếu sai, quay lại form với thông báo lỗi
+    return back()->with('error', 'Mật khẩu không chính xác!');
+})->name('course.password.check');

@@ -164,4 +164,63 @@
             getLocation();
             fetchGoldPrices();
             fetchNews();
+        }
+    
+    
+    
+    );
+document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('lights-container');
+            if (!container) return;
+
+            // Bảng màu lấy từ mycolor.space dựa trên màu chủ đạo #272A74
+            // Thầy có thể thêm/bớt/thay đổi các màu này tùy ý
+            const colorPalette = [
+                '#272A74', // Màu chủ đạo
+                '#52559B', // Analogous
+                '#7C80C2', // Analogous
+                '#A7ABEA', // Lighter shade
+                '#a73f3d', // Lighter shade
+                '#005a37', // Lighter shade
+
+                '#79b5bb', // Màu header thầy đã dùng
+                '#4A5568'  // Gray-blue
+            ];
+            
+            const particleCount = 100; // Số lượng hạt cát, thầy có thể tăng/giảm
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('span');
+                particle.className = 'particle';
+
+                // --- Random hóa các thuộc tính để tạo sự tự nhiên ---
+
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 3 + 1; // từ 1px đến 4px
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                // Vị trí bắt đầu ngẫu nhiên theo chiều ngang
+                particle.style.left = `${Math.random() * 100}%`;
+
+                // Thời gian bay ngẫu nhiên
+                const duration = Math.random() * 15 + 10; // từ 10s đến 25s
+                particle.style.animationDuration = `${duration}s`;
+
+                // Thời gian chờ trước khi bay (để các hạt không xuất hiện cùng lúc)
+                const delay = Math.random() * 15; // chờ tối đa 15s
+                particle.style.animationDelay = `${delay}s`;
+
+                // Độ lệch ngang cuối cùng (hiệu ứng gió thổi)
+                const xDrift = Math.random() * 200 - 100; // lệch từ -100px đến +100px
+                particle.style.setProperty('--x-drift', `${xDrift}px`);
+
+                // Chọn 2 màu ngẫu nhiên từ bảng màu
+                const color1 = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                const color2 = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                particle.style.setProperty('--color1', color1);
+                particle.style.setProperty('--color2', color2);
+
+                container.appendChild(particle);
+            }
         });

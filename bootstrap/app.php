@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+            // Thêm alias cho middleware của chúng ta
+    $middleware->alias([
+        'protect_course' => \App\Http\Middleware\ProtectCourseMiddleware::class,
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

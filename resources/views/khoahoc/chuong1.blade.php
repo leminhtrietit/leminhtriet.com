@@ -3,7 +3,10 @@
 @section('title', 'Chương 1: Tổng quan về AI')
 
 @section('content')
-    <div class="flex items-center mb-8">
+<div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="bg-white/80 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20">
+
+<div class="flex items-center mb-8">
         <a href="{{ route('course.index') }}" class="text-indigo-600 hover:text-indigo-800 mr-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z" clip-rule="evenodd" />
@@ -149,6 +152,10 @@
             </div>
         </section>
     </div>
+            </div>
+
+        </div>
+    
 
     {{-- CSS và JS nội bộ cho các thành phần tương tác --}}
     <style>

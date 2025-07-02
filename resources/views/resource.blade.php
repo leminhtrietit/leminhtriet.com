@@ -3,6 +3,9 @@
 @section('title', 'Download Resources') {{-- Set the title --}}
 
 @section('content')
+<div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="bg-white/80 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20">
+
     <div class="overflow-x-auto rounded-lg border border-white/30 shadow-md">
                     <table class="w-full text-sm text-left text-gray-800">
                         <thead class="text-xs text-gray-900 uppercase bg-white/40 backdrop-blur-md">
@@ -30,6 +33,8 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                </div>
                 </div>
 
 

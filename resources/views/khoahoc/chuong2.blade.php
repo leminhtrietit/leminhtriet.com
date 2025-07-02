@@ -47,6 +47,8 @@
             background-color: rgba(128, 128, 128, 0.7);
         }
     </style>
+<div class="max-w-6xl mx-auto px-6 py-12">
+            <div class="bg-white/80 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20">
 
     <div class="flex items-center mb-12">
         <a href="{{ route('course.index') }}" class="text-teal-600 hover:text-teal-800 mr-4">
@@ -172,7 +174,8 @@
             </div>
         </section>
     </div>
-
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Chỉ thực thi JS trên màn hình desktop (nơi có layout 2 cột)
