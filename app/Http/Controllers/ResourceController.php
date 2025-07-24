@@ -13,23 +13,34 @@ class ResourceController extends Controller
 
     //     return view('resource', compact('resources'));
     // }
-    public function index(Request $request)
-    {
-        // Lấy giá trị tìm kiếm từ query string (nếu có)
-        $search = $request->input('search');
+   public function index()
+{
+    // 1. Lấy tất cả resource đang hoạt động
+    $allResources = Resource::where('trangthai_link', 1)->get();
 
-        // Khởi tạo query
-        $query = Resource::query();
+    // 2. Nhóm chúng lại theo category
+    $grouped = $allResources->groupBy('category');
 
-        // Nếu có từ khóa tìm kiếm, lọc theo cột appname (có thể mở rộng cho các cột khác nếu cần)
-        if ($search) {
-            $query->where('appname', 'like', '%' . $search . '%');
-        }
+    // 3. ĐỊNH NGHĨA THỨ TỰ MONG MUỐN
+    $categoryOrder = [
+        'Office',
+        'Đồ hoạ',
+        'Vẽ kỹ thuật',
+        'Workspace',
+        'Ứng dụng',
+        'Hướng dẫn',
+        'Khác',
 
-        // Sắp xếp theo appname theo thứ tự tăng dần (A -> Z)
-        $resources = $query->orderBy('appname', 'asc')->get();
+        // Thêm các category khác vào đây theo đúng thứ tự bạn muốn
+    ];
 
-        // Trả về view kèm dữ liệu tìm kiếm và kết quả
-        return view('resource', compact('resources', 'search'));
-    }
+    // 4. SẮP XẾP LẠI COLLECTION DỰA TRÊN THỨ TỰ ĐÃ ĐỊNH NGHĨA
+    $categorizedResources = $grouped->sortBy(function ($resources, $category) use ($categoryOrder) {
+        $order = array_search($category, $categoryOrder);
+        return $order === false ? 999 : $order; // Nếu category không có trong mảng order, đẩy xuống cuối
+    });
+
+    // 5. Trả về view với cả 2 biến
+    return view('resource', compact('categorizedResources', 'allResources'));
+}
 }

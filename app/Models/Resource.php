@@ -12,8 +12,11 @@ class Resource extends Model
     protected $table = 'resources';
 
     protected $fillable = [
-        'appname',
+'appname',
         'version',
+        'category',      // Thêm để phân loại
+        'description',   // Thêm để mô tả
+        'logo_url',      // Thêm để hiển thị logo
         'link_truycap',
         'ten_hanhdong',
         'trangthai_link',

@@ -9,7 +9,17 @@
         <div class="bg-white/50 backdrop-blur-sm rounded-xl p-6 mb-8 text-center border border-white/20">
             <h1 class="text-4xl font-bold mb-2 text-gray-900">Tutorials</h1>                    <!-- <p class="text-lg text-gray-700">Chọn một bài học bên dưới để bắt đầu cuộc hành trình kiến thức của bạn!</p> -->
         </div>
-
+<div class="mb-12 bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-8 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between">
+    <div class="md:w-2/3">
+        <h2 class="text-3xl font-bold mb-2">Khám phá Giáo trình Ứng dụng AI</h2>
+        <p class="opacity-90">Một khóa học đầy đủ để bạn làm chủ các công cụ AI, tối ưu hóa công việc và nâng cao hiệu suất.</p>
+    </div>
+    <div class="mt-6 md:mt-0">
+        <a href="{{ route('course.index') }}" class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+            Xem giáo trình →
+        </a>
+    </div>
+</div>
     <!-- Layout Lưới cho các thẻ bài học -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Bạn có thể sao chép khối div ở trên để thêm các bài học khác -->

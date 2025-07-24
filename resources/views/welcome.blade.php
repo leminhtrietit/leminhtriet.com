@@ -1,42 +1,48 @@
 @extends('application')  {{-- Use the new layout --}}
 
-@section('title', 'Download Resources') {{-- Set the title --}}
+@section('title', 'MinhTrietEras') {{-- Set the title --}}
 
 @section('content')
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <!-- ** CẬP NHẬT: THAY THẾ NỘI DUNG BẰNG DASHBOARD WIDGETS ** -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                
-                <!-- Cột Trái: Thời tiết & Giá vàng -->
-                <div class="lg:col-span-1 flex flex-col gap-8">
-                    <!-- Widget Thời tiết -->
-                    <div id="weather-widget" class="bg-white/40 backdrop-blur-lg p-6 rounded-2xl border border-white/30 shadow-lg flex flex-col items-center text-center">
-                        <h3 class="font-bold text-gray-900">Thời tiết</h3>
-                        <p id="weather-location" class="text-sm text-gray-600 mb-4">Đang xác định vị trí...</p>
-                        <div id="weather-icon" class="w-24 h-24 text-gray-400 flex items-center justify-center">...</div>
-                        <p id="weather-temp" class="text-5xl font-bold text-gray-900 mt-4">--°C</p>
-                        <p id="weather-desc" class="text-gray-700 capitalize">...</p>
-                    </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
-                    <!-- Widget Giá Vàng -->
-                    <div class="bg-white/50 backdrop-blur-md p-6 rounded-2xl border border-white/30 shadow-lg">
-                        <h3 class="font-bold text-gray-900 mb-4 text-center">Giá Vàng Hôm Nay</h3>
-                        <div id="gold-price-widget" class="space-y-3">
-                           <p class="text-xs text-center text-gray-500">Đang tải dữ liệu...</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Cột Phải: Widget Tin tức -->
-                <div class="lg:col-span-2 bg-white/50 backdrop-blur-md p-6 rounded-2xl border border-white/30 shadow-lg">
-                     <h3 class="font-bold text-gray-900 mb-4 text-center lg:text-left">Tin Tức Công Nghệ & AI</h3>
-                     <div id="news-widget" class="space-y-4">
-                        <p class="text-xs text-center text-gray-500">Đang tải tin tức...</p>
-                     </div>
+        <a href="{{ route('course.index') }}" class="group block bg-white/50 backdrop-blur-md p-8 rounded-2xl border border-white/30 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
+            <div class="flex-grow">
+                <div class="flex items-center justify-center h-16 w-16 mb-6 bg-indigo-500/20 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 01-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 013.09-3.09L12 5.25l2.846.813a4.5 4.5 0 013.09 3.09L21.75 12l-2.846.813a4.5 4.5 0 01-3.09 3.09z" />
+                    </svg>
                 </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Giáo trình Ứng dụng AI</h3>
+                <p class="text-gray-600">Tận dụng sức mạnh của AI để tối ưu hóa hiệu suất làm việc và giải quyết vấn đề hiệu quả.</p>
             </div>
-        </div>
-    </main>
+            <div class="mt-6">
+                <span class="font-semibold text-indigo-600 group-hover:underline">
+                    Bắt đầu khám phá →
+                </span>
+            </div>
+        </a>
+
+        <a href="{{ route('resource') }}" class="group block bg-white/50 backdrop-blur-md p-8 rounded-2xl border border-white/30 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col">
+            <div class="flex-grow">
+                <div class="flex items-center justify-center h-16 w-16 mb-6 bg-teal-500/20 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Tài nguyên & Tải về</h3>
+                <p class="text-gray-600">Các công cụ và tài liệu được chọn lọc để tăng tốc hiệu suất công việc của bạn.</p>
+            </div>
+            <div class="mt-6">
+                <span class="font-semibold text-teal-600 group-hover:underline">
+                    Khám phá tài nguyên →
+                </span>
+            </div>
+        </a>
+
+    </div>
+</div>
 
     <!-- ======================= 3. FOOTER SECTION (LIQUID GLASS STYLE) ======================= -->
    <footer id="floating-footer" class="custom-shadow bg-white/25 backdrop-blur-xl text-gray-800 fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl transition-all duration-500 border border-white/30 opacity-0 invisible">

@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
         'protect_course' => \App\Http\Middleware\ProtectCourseMiddleware::class,
     ]);
+    $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

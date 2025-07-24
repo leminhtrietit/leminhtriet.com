@@ -9,7 +9,17 @@ use App\Filament\Pages\Auth\ChangePassword;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'vi'])) {
+        // Lưu ngôn ngữ người dùng chọn vào session
+        Session::put('locale', $locale);
+    }
+    // Quay trở lại trang trước đó
+    return Redirect::back();
+});
 Route::get('/email/verify/{id}/{token}', [EmailVerificationController::class, 'verify'])
     ->middleware(['signed'])
     ->name('verification.verify');
@@ -57,6 +67,10 @@ Route::get('/', function () {
 Route::get('/portfolio', function () {
     return view('portfolio');
 })->name('portfolio');
+
+Route::get('/projects', function () {
+    return view('projects');
+})->name('projects');
 
 Route::get('/thunghiem', function () {
     return view('test');
@@ -126,7 +140,7 @@ Route::get('/test', function () {
 // --- ROUTE CHO GIÁO TRÌNH AI ---
 Route::prefix('giao-trinh-ai')
     ->name('course.')
-    ->middleware('protect_course')
+    // ->middleware('protect_course')
     ->group(function () 
     
     {
@@ -148,7 +162,7 @@ Route::prefix('giao-trinh-ai')
         return view('khoahoc.chuong3');
     })->name('chuong3');
 
-    Route::get('/chuong-4-ung-dung-chatgpt', function () {
+    Route::get('/chuong-4-ung-dung-van-phong', function () {
         return view('khoahoc.chuong4');
     })->name('chuong4');
 
@@ -164,21 +178,21 @@ Route::get('/test-500', function () {
 // File: routes/web.php
 
 // Route để hiển thị form nhập mật khẩu
-Route::get('/giao-trinh-ai/nhap-mat-khau', function () {
-    return view('khoahoc.password');
-})->name('course.password.form');
+// Route::get('/giao-trinh-ai/nhap-mat-khau', function () {
+//     return view('khoahoc.password');
+// })->name('course.password.form');
 
-// Route để xử lý việc kiểm tra mật khẩu
-Route::post('/giao-trinh-ai/kiem-tra-mat-khau', function (Illuminate\Http\Request $request) {
-    $correctPassword = env('COURSE_PASSWORD', 'minhtriet'); // Pro-tip: Lấy pass từ file .env
+// // Route để xử lý việc kiểm tra mật khẩu
+// Route::post('/giao-trinh-ai/kiem-tra-mat-khau', function (Illuminate\Http\Request $request) {
+//     $correctPassword = env('COURSE_PASSWORD', 'minhtriet'); // Pro-tip: Lấy pass từ file .env
 
-    // Dùng hash_equals để so sánh an toàn hơn
-    if (hash_equals($correctPassword, $request->input('password'))) {
-        // Nếu đúng, lưu quyền vào session và chuyển hướng đến giáo trình
-        $request->session()->put('course_access_granted', true);
-        return redirect()->route('course.index');
-    }
+//     // Dùng hash_equals để so sánh an toàn hơn
+//     if (hash_equals($correctPassword, $request->input('password'))) {
+//         // Nếu đúng, lưu quyền vào session và chuyển hướng đến giáo trình
+//         $request->session()->put('course_access_granted', true);
+//         return redirect()->route('course.index');
+//     }
 
-    // Nếu sai, quay lại form với thông báo lỗi
-    return back()->with('error', 'Mật khẩu không chính xác!');
-})->name('course.password.check');
+//     // Nếu sai, quay lại form với thông báo lỗi
+//     return back()->with('error', 'Mật khẩu không chính xác!');
+// })->name('course.password.check');
