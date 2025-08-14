@@ -1,48 +1,104 @@
 body {
-            font-family: 'Inter', sans-serif;
-        }
+    font-family: 'Inter', sans-serif;
+}
 
-        body {
-           
-            /* Padding-bottom sẽ được JS tính toán động */
-             /* background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop'); */
-                /* background-image: linear-gradient(to bottom, #00ffff, #00ff99); */
-            background-color: #ffffff;
-            background-size: cover;
-            background-attachment: fixed;
-            transition: padding-bottom 0.2s ease-out; /* Thêm hiệu ứng chuyển động mượt */
-        }
-        .body-with-padding {
-            padding-top: 120px;
-            /* ... */
-        }
+body {
+    /* Padding-bottom sẽ được JS tính toán động */
+    background-color: #ffffff;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: padding-bottom 0.2s ease-out;
+}
+.body-with-padding {
+    padding-top: 120px;
+}
 
-        /* Thêm box-shadow tùy chỉnh bạn cung cấp */
-        .custom-shadow {
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-        }
+/* Thêm box-shadow tùy chỉnh bạn cung cấp */
+.custom-shadow {
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+}
 
-        /* Hiệu ứng hào quang theo chuột */
-        .glow-effect {
-            background: radial-gradient(
-                250px circle at var(--x) var(--y),
-                #ec4899, /* pink-500 */
-                #a855f7, /* purple-500 */
-                transparent 80%
-            );
-        }
+/* Hiệu ứng hào quang theo chuột */
+.glow-effect {
+    background: radial-gradient(
+        250px circle at var(--x) var(--y),
+        #ec4899, /* pink-500 */
+        #a855f7, /* purple-500 */
+        transparent 80%
+    );
+}
 
-        /* Hiệu ứng loading spinner */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #6366f1; /* indigo-500 */
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
+/* Hiệu ứng loading spinner cũ (đã được lưu lại) */
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #6366f1; /* indigo-500 */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* HIỆU ỨNG LOADING SPINNER MỚI - "LOADING CUBE" */
+.loader-cube {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    transform: rotateZ(45deg);
+}
+
+.loader-cube .box {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    transform: scale(0.8);
+    background-color: #4A5568; /* Màu xám */
+}
+
+.loader-cube .box:nth-child(1) {
+    top: 0;
+    left: 0;
+    animation: fadeBox1 2s linear infinite;
+    background-color: #f7a23b; /* Màu cam logo */
+}
+
+.loader-cube .box:nth-child(2) {
+    top: 0;
+    right: 0;
+    animation: fadeBox2 2s linear infinite;
+    background-color: #272A74; /* Màu xanh logo */
+}
+
+.loader-cube .box:nth-child(3) {
+    bottom: 0;
+    left: 0;
+    animation: fadeBox3 2s linear infinite;
+    background-color: #f7a23b; /* Màu cam logo */
+}
+
+.loader-cube .box:nth-child(4) {
+    bottom: 0;
+    right: 0;
+    animation: fadeBox4 2s linear infinite;
+    background-color: #272A74; /* Màu xanh logo */
+}
+
+@keyframes fadeBox1 {
+    0%, 75% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@keyframes fadeBox2 {
+    0%, 25% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+@keyframes fadeBox3 {
+    0%, 50% { opacity: 1; }
+    75%, 100% { opacity: 0; }
+}
+@keyframes fadeBox4 {
+    0%, 100% { opacity: 1; }
+}

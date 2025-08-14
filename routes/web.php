@@ -11,7 +11,9 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\QrCodeController;
 
+Route::get('/tools/qrcode', [QrCodeController::class, 'showForm'])->name('tools.qrcode');
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'vi'])) {
         // Lưu ngôn ngữ người dùng chọn vào session
@@ -136,9 +138,10 @@ Route::get('/tools', [PostController::class, 'tools'])->name('tools.index');
 Route::get('/test', function () {
     return view('tool');
 });
+Route::redirect('/giao-trinh-ai', '/giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong');
 
 // --- ROUTE CHO GIÁO TRÌNH AI ---
-Route::prefix('giao-trinh-ai')
+Route::prefix('giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong')
     ->name('course.')
     // ->middleware('protect_course')
     ->group(function () 
@@ -169,14 +172,22 @@ Route::prefix('giao-trinh-ai')
     Route::get('/chuong-5-cong-cu-chuyen-biet', function () {
         return view('khoahoc.chuong5');
     })->name('chuong5');
+    
+    Route::get('/chuyen-de-storybook', function () {
+        return view('khoahoc.storybook');
+    })->name('storybook');
 });
 
 Route::get('/test-500', function () {
     return redirect()->route('route.khong.ton.tai');
 });
-
+Route::get('/shopee-vip-promo', function () {
+    return view('shopee_promo');
+})->name('shopee.promo');
 // File: routes/web.php
-
+Route::get('/test-loader', function () {
+    return view('loader_test');
+})->name('test.loader');
 // Route để hiển thị form nhập mật khẩu
 // Route::get('/giao-trinh-ai/nhap-mat-khau', function () {
 //     return view('khoahoc.password');

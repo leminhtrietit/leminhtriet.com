@@ -47,7 +47,7 @@
             background-color: rgba(128, 128, 128, 0.7);
         }
     </style>
-<div class="max-w-6xl mx-auto px-6 py-12">
+<div class="max-w-6xl mx-auto px-6 py-4">
             <div class="bg-white/80 backdrop-blur-md p-8 rounded-lg shadow-lg border border-white/20">
 
     <div class="flex items-center mb-12">

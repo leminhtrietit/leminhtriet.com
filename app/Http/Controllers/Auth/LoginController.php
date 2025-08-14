@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use Filament\Facades\Filament; // Import Filament Facade để lấy URL panel
 
 class LoginController extends Controller
 {

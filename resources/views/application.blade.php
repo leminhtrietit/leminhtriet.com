@@ -42,12 +42,34 @@
             z-index: -10;
             animation: rotate 40s linear infinite;
         }
-                [x-cloak] { display: none !important; }
-
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 body-with-padding">
+<body class="bg-gray-50 text-gray-800 body-with-padding @yield('layout_class')">
 
+    {{-- Thêm loading spinner tại đây --}}
+    <div id="page-loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/50 backdrop-blur-md transition-opacity duration-300">
+        {{-- Loader mới --}}
+        <div class="w-12 text-blue-600">
+            <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <style>
+                    /* Inline CSS để tùy chỉnh màu */
+                    circle {
+                        fill: #272A74; /* Màu xanh dương đậm của logo */
+                    }
+                </style>
+                <circle cx="4" cy="12" r="3">
+                    <animate id="spinner_jObz" begin="0;spinner_vwSQ.end-0.25s" attributeName="r" dur="0.75s" values="3;.2;3"></animate>
+                </circle>
+                <circle cx="12" cy="12" r="3">
+                    <animate begin="spinner_jObz.end-0.6s" attributeName="r" dur="0.75s" values="3;.2;3"></animate>
+                </circle>
+                <circle cx="20" cy="12" r="3">
+                    <animate id="spinner_vwSQ" begin="spinner_jObz.end-0.45s" attributeName="r" dur="0.75s" values="3;.2;3"></animate>
+                </circle>
+            </svg>
+        </div>
+    </div>
     {{-- Hiệu ứng nền Mesh Gradient --}}
     <div class="mesh-container">
         <div class="absolute top-0 left-1/2 w-full h-full">
@@ -132,7 +154,7 @@
         </div>
     </main>
 
-    <footer id="floating-footer" class="custom-shadow bg-white/30 backdrop-blur-xl text-gray-800 fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl transition-all duration-500 border border-white/50 opacity-0 invisible">
+<footer id="scroll-footer" class="custom-shadow bg-white/30 backdrop-blur-xl text-gray-800 w-11/12 max-w-6xl mx-auto my-4 z-50 rounded-3xl transition-all duration-500 border border-white/50 opacity-0 pointer-events-none">
         <div class="max-w-6xl mx-auto px-6 py-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                 <div class="flex flex-col items-center md:items-start">
@@ -175,9 +197,35 @@
     </footer>
 
     <script src="{{ asset('assets/js/liquid_glass.js') }}"></script>
-    <script src="{{ asset('assets/js/script.js') }}"></script>
-    
-    {{-- Thêm thẻ script này để Alpine.js được khởi tạo đúng cách --}}
+    <script>
+        // JS để ẩn loader khi trang đã tải xong
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.classList.add('opacity-0');
+                // Xóa loader khỏi DOM sau khi animation kết thúc để tránh chặn tương tác
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 300);
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.getElementById('scroll-footer');
+    function checkFooter() {
+        // Khoảng cách từ đáy trình duyệt đến đáy trang (<= 32px thì coi như tới đáy)
+        if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 32)) {
+            footer.classList.remove('opacity-0', 'pointer-events-none');
+            footer.classList.add('opacity-100');
+        } else {
+            footer.classList.add('opacity-0', 'pointer-events-none');
+            footer.classList.remove('opacity-100');
+        }
+    }
+    window.addEventListener('scroll', checkFooter);
+    window.addEventListener('resize', checkFooter);
+    checkFooter();
+});
+    </script>
     @yield('scripts')
 
 </body>
