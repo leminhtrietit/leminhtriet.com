@@ -1,6 +1,10 @@
 @extends('application')  {{-- Sử dụng layout chính --}}
 
-@section('title', 'MinhTrietEras - Công cụ & Tài nguyên') {{-- Cập nhật title --}}
+{{-- Title mới, ngắn gọn và tập trung vào từ khóa --}}
+@section('title', 'Trang chủ')
+
+{{-- Thêm description cụ thể cho trang chủ --}}
+@section('description', 'MinhTrietEras cung cấp các giáo trình AI, công cụ tạo mã QR, tài nguyên lập trình và các bài viết hướng dẫn chuyên sâu để giúp bạn làm việc hiệu quả hơn.')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

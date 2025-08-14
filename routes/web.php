@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\QrCodeController;
 
-Route::get('/tools/qrcode', [QrCodeController::class, 'showForm'])->name('tools.qrcode');
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'vi'])) {
         // Lưu ngôn ngữ người dùng chọn vào session
@@ -79,14 +78,16 @@ Route::get('/thunghiem', function () {
 })->name('thunghiem');
 
 
-Route::get('/resource', [App\Http\Controllers\ResourceController::class, 'index'])->name('resource');
-Route::get('/download', [App\Http\Controllers\ResourceController::class, 'index']);
-Route::get('/download', [App\Http\Controllers\ResourceController::class, 'index']);
+Route::get('/tai-nguyen', [App\Http\Controllers\ResourceController::class, 'index'])->name('resource');
 
 
 Route::get('/tutorial', function () {
     return view('tutorial');
 })->name('tutorial');
+Route::redirect('/download', '/tai-nguyen', 301);
+Route::redirect('/resource', '/tai-nguyen', 301); // 301 Redirect từ URL cũ sang URL mới
+ // 301 Redirect từ URL cũ sang URL mới
+Route::redirect('/tutorial', '/bai-viet', 301);
 
 Route::get('/learning/aiforwork/buoi2', function () {
     return redirect('https://leminhtriet.com/posts/ai-for-meeting-note');
@@ -130,15 +131,23 @@ Route::get('/dump-autoload', function () {
 });
 
 
-Route::get('/categories/{category:slug}', [PostController::class, 'index'])->name('categories.index');
-Route::get('/tags/{tag:slug}', [PostController::class, 'index'])->name('tags.index');Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
-Route::get('/tools', [PostController::class, 'tools'])->name('tools.index');
-Route::get('/test', function () {
-    return view('tool');
-});
-Route::redirect('/giao-trinh-ai', '/giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong');
+// --- TRUNG TÂM NỘI DUNG ---
+// Trang blog tổng hợp tất cả bài viết
+Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
+
+// URL chi tiết bài viết (chuẩn SEO, duy nhất)
+Route::get('/bai-viet/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+
+// URL danh sách bài viết theo Tag
+Route::get('/the/{tag:slug}', [PostController::class, 'indexByTag'])->name('posts.by_tag');
+
+// URL danh sách bài viết theo Category (quan trọng nhất)
+// Route này phải đặt gần cuối để không "bắt" các slug của trang tĩnh như /cac-du-an
+Route::get('/{category:slug}', [PostController::class, 'index'])->name('posts.by_category');
+
+// --- CÁC ROUTE CHO CÔNG CỤ CỤ THỂ ---
+Route::get('/cong-cu/tao-ma-qr', [QrCodeController::class, 'showForm'])->name('tools.qrcode');
+// Thêm các route cho công cụ cụ thể khác tại đây...
 
 // --- ROUTE CHO GIÁO TRÌNH AI ---
 Route::prefix('giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong')
@@ -188,22 +197,3 @@ Route::get('/shopee-vip-promo', function () {
 Route::get('/test-loader', function () {
     return view('loader_test');
 })->name('test.loader');
-// Route để hiển thị form nhập mật khẩu
-// Route::get('/giao-trinh-ai/nhap-mat-khau', function () {
-//     return view('khoahoc.password');
-// })->name('course.password.form');
-
-// // Route để xử lý việc kiểm tra mật khẩu
-// Route::post('/giao-trinh-ai/kiem-tra-mat-khau', function (Illuminate\Http\Request $request) {
-//     $correctPassword = env('COURSE_PASSWORD', 'minhtriet'); // Pro-tip: Lấy pass từ file .env
-
-//     // Dùng hash_equals để so sánh an toàn hơn
-//     if (hash_equals($correctPassword, $request->input('password'))) {
-//         // Nếu đúng, lưu quyền vào session và chuyển hướng đến giáo trình
-//         $request->session()->put('course_access_granted', true);
-//         return redirect()->route('course.index');
-//     }
-
-//     // Nếu sai, quay lại form với thông báo lỗi
-//     return back()->with('error', 'Mật khẩu không chính xác!');
-// })->name('course.password.check');

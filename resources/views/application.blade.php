@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'MinhTrietEras')</title>
-    
+    <title>@yield('title') | MinhTrietEras</title>
+    {{-- Thêm thẻ meta description - Rất quan trọng cho SEO --}}
+    <meta name="description" content="@yield('description', 'Khám phá các công cụ AI, hướng dẫn lập trình và tài nguyên hữu ích để nâng cao hiệu suất công việc và phát triển kỹ năng trong thế giới số.')">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -99,7 +101,7 @@
                     {{-- Menu desktop giữ nguyên --}}
                     <a href="{{ route('home') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.home') }}</span></div></a>
                     <a href="{{ route('posts.index') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.tutorials') }}</span></div></a>
-                    <a href="{{ route('tools.index') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.tools') }}</span></div></a>
+    <a href="{{ route('posts.by_category', 'cong-cu') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.tools') }}</span></div></a>
                     <a href="{{ route('projects') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">Dự án</span></div></a>
                     <a href="{{ route('portfolio') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.portfolio') }}</span></div></a>
                     <a href="{{ route('resource') }}" class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1"><div class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300"></div><div class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300"><span class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.download') }}</span></div></a>
@@ -131,7 +133,7 @@
                 <nav class="flex flex-col items-center space-y-2">
                     <a @click="mobileMenuOpen = false" href="{{ route('home') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">{{ __('layout.home') }}</a>
                     <a @click="mobileMenuOpen = false" href="{{ route('posts.index') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">{{ __('layout.tutorials') }}</a>
-                    <a @click="mobileMenuOpen = false" href="{{ route('tools.index') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">{{ __('layout.tools') }}</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('posts.by_category', 'cong-cu') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">{{ __('layout.tools') }}</a>
                     <a @click="mobileMenuOpen = false" href="{{ route('projects') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">Dự án</a>
                     <a @click="mobileMenuOpen = false" href="{{ route('portfolio') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">{{ __('layout.portfolio') }}</a>
                     <a @click="mobileMenuOpen = false" href="{{ route('resource') }}" class="block w-full text-center py-2 text-gray-800 hover:bg-white/40 rounded-lg">{{ __('layout.download') }}</a>

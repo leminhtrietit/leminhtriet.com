@@ -2,45 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
+use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    /**
+     * Hiển thị trang blog tổng hợp, hoặc danh sách bài viết theo một danh mục cụ thể.
+     * Phương thức này sẽ xử lý cho cả route '/blog' và '/{category:slug}'
+     */
+    public function index(Category $category = null)
     {
-        $toolTag = Tag::where('slug', 'tool')->first(); // Tìm tag "tool" (có thể null)
-        $posts = Post::where('is_active', 1);
+        // Bắt đầu một query mới
+        $query = Post::where('is_active', true)->orderBy('published_at', 'desc');
 
-        if ($toolTag) {
-            $posts = $posts->whereDoesntHave('tags', function ($query) use ($toolTag) {
-                $query->where('id', $toolTag->id);
+        // Nếu có một danh mục được truyền vào từ route (vd: người dùng vào /huong-dan)
+        if ($category) {
+            // Lấy các bài viết thuộc danh mục đó
+            $query->whereHas('categories', function ($q) use ($category) {
+                $q->where('id', $category->id);
             });
+            $pageTitle = $category->name;
+        } else {
+            // Nếu không có danh mục (người dùng vào /blog), lấy tất cả bài viết
+            $pageTitle = 'Blog';
         }
 
-        $posts = $posts->paginate(10);
+        $posts = $query->paginate(12);
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'pageTitle', 'category'));
     }
 
+    /**
+     * Hiển thị chi tiết một bài viết.
+     * Phương thức này xử lý cho route '/bai-viet/{post:slug}'
+     */
     public function show(Post $post)
     {
+        if (!$post->is_active) {
+            abort(404);
+        }
+        
+        // Eager load các quan hệ để tối ưu query
+        $post->load('categories', 'tags');
+
         return view('posts.show', compact('post'));
     }
-
-    public function tools()
+    public function indexByTag(Tag $tag)
     {
-        $toolTag = Tag::where('slug', 'tool')->firstOrFail();
-        $posts = $toolTag->posts()->where('is_active', 1)->paginate(10); // Chỉ lấy các bài viết đang hoạt động
-    
-        // Truyền dữ liệu chi tiết hơn (nếu cần)
-        $posts->each(function ($post) {
-            // Ví dụ: Load thêm các mối quan hệ liên quan
-            $post->load('categories', 'tags');
-        });
-    
-        return view('posts.tools', compact('posts'));
+        $query = $tag->posts()
+                     ->where('is_active', true)
+                     ->orderBy('published_at', 'desc');
+
+        $posts = $query->paginate(12);
+        $pageTitle = 'Bài viết với tag: ' . $tag->name;
+
+        return view('posts.index', compact('posts', 'pageTitle'));
     }
 }
