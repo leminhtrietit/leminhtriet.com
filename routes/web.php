@@ -131,6 +131,38 @@ Route::get('/dump-autoload', function () {
 });
 
 
+Route::prefix('giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong')
+    ->name('course.')
+    ->group(function () {
+        Route::get('/', function () {
+            return view('khoahoc.index');
+        })->name('index');
+
+        Route::get('/chuong-1-tong-quan', function () {
+            return view('khoahoc.chuong1');
+        })->name('chuong1');
+
+        Route::get('/chuong-2-nghe-thuat-prompt', function () {
+            return view('khoahoc.chuong2');
+        })->name('chuong2');
+
+        Route::get('/chuong-3-suc-manh-gemini', function () {
+            return view('khoahoc.chuong3');
+        })->name('chuong3');
+
+        Route::get('/chuong-4-ung-dung-van-phong', function () {
+            return view('khoahoc.chuong4');
+        })->name('chuong4');
+
+        Route::get('/chuong-5-cong-cu-chuyen-biet', function () {
+            return view('khoahoc.chuong5');
+        })->name('chuong5');
+        
+        Route::get('/chuyen-de-storybook', function () {
+            return view('khoahoc.storybook');
+        })->name('storybook');
+    });
+
 // --- TRUNG TÂM NỘI DUNG ---
 // Trang blog tổng hợp tất cả bài viết
 Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
@@ -148,44 +180,6 @@ Route::get('/{category:slug}', [PostController::class, 'index'])->name('posts.by
 // --- CÁC ROUTE CHO CÔNG CỤ CỤ THỂ ---
 Route::get('/cong-cu/tao-ma-qr', [QrCodeController::class, 'showForm'])->name('tools.qrcode');
 // Thêm các route cho công cụ cụ thể khác tại đây...
-
-// --- ROUTE CHO GIÁO TRÌNH AI ---
-Route::prefix('giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong')
-    ->name('course.')
-    // ->middleware('protect_course')
-    ->group(function () 
-    
-    {
-    // Trang chính của giáo trình
-    Route::get('/', function () {
-        return view('khoahoc.index');
-    })->name('index');
-
-    // Route cho từng chương
-    Route::get('/chuong-1-tong-quan', function () {
-        return view('khoahoc.chuong1');
-    })->name('chuong1');
-
-    Route::get('/chuong-2-nghe-thuat-prompt', function () {
-        return view('khoahoc.chuong2');
-    })->name('chuong2');
-
-    Route::get('/chuong-3-suc-manh-gemini', function () {
-        return view('khoahoc.chuong3');
-    })->name('chuong3');
-
-    Route::get('/chuong-4-ung-dung-van-phong', function () {
-        return view('khoahoc.chuong4');
-    })->name('chuong4');
-
-    Route::get('/chuong-5-cong-cu-chuyen-biet', function () {
-        return view('khoahoc.chuong5');
-    })->name('chuong5');
-    
-    Route::get('/chuyen-de-storybook', function () {
-        return view('khoahoc.storybook');
-    })->name('storybook');
-});
 
 Route::get('/test-500', function () {
     return redirect()->route('route.khong.ton.tai');

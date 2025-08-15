@@ -70,7 +70,7 @@
         /* === KẾT THÚC CSS CHO HIỆU ỨNG === */
     </style>
 
-    <div class="max-w-6xl mx-auto px-6 py-12">
+    <div class="max-w-6xl mx-auto px-6 py-4">
         {{-- Khởi tạo Alpine.js component, truyền toàn bộ resource vào --}}
         <div x-data="{ 
             search: '', 
