@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\QRPaymentController;
 
 Route::get('lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'vi'])) {
@@ -40,8 +41,8 @@ Route::post('logout', [LoginController::class, 'logout'])
 
 // Route để xử lý logout từ Filament và về trang chủ
 Route::post('/panel-logout', [LoginController::class, 'filamentLogout'])
-      ->middleware('auth') // Chỉ user đã đăng nhập mới gọi được
-      ->name('filament.panel.logout'); // Đặt tên route là 'filament.panel.logout' (hoặc tên khác tùy bạn)
+    ->middleware('auth') // Chỉ user đã đăng nhập mới gọi được
+    ->name('filament.panel.logout'); // Đặt tên route là 'filament.panel.logout' (hoặc tên khác tùy bạn)
 
 // --- KẾT THÚC ROUTE ĐĂNG NHẬP / ĐĂNG XUẤT ---
 
@@ -72,7 +73,9 @@ Route::get('/portfolio', function () {
 Route::get('/projects', function () {
     return view('projects');
 })->name('projects');
-
+Route::get('/privacy', function () {
+    return view('privacy');
+})->name('privacy');
 Route::get('/thunghiem', function () {
     return view('test');
 })->name('thunghiem');
@@ -86,7 +89,7 @@ Route::get('/tutorial', function () {
 })->name('tutorial');
 Route::redirect('/download', '/tai-nguyen', 301);
 Route::redirect('/resource', '/tai-nguyen', 301); // 301 Redirect từ URL cũ sang URL mới
- // 301 Redirect từ URL cũ sang URL mới
+// 301 Redirect từ URL cũ sang URL mới
 Route::redirect('/tutorial', '/bai-viet', 301);
 
 Route::get('/learning/aiforwork/buoi2', function () {
@@ -157,7 +160,7 @@ Route::prefix('giao-trinh-ung-dung-tri-tue-nhan-tao-ai-trong-van-phong')
         Route::get('/chuong-5-cong-cu-chuyen-biet', function () {
             return view('khoahoc.chuong5');
         })->name('chuong5');
-        
+
         Route::get('/chuyen-de-storybook', function () {
             return view('khoahoc.storybook');
         })->name('storybook');
@@ -179,7 +182,30 @@ Route::get('/{category:slug}', [PostController::class, 'index'])->name('posts.by
 
 // --- CÁC ROUTE CHO CÔNG CỤ CỤ THỂ ---
 Route::get('/cong-cu/tao-ma-qr', [QrCodeController::class, 'showForm'])->name('tools.qrcode');
-// Thêm các route cho công cụ cụ thể khác tại đây...
+
+// Tra cứu mã số thuế doanh nghiệp
+Route::get('/tools/lookup-taxcode', function () {
+    return view('tools.lookup-taxcode'); // view này bạn tạo sau
+})->name('lookup.taxcode');
+Route::post('/tools/lookup-taxcode', [\App\Http\Controllers\TaxCodeLookupController::class, 'lookup']);
+Route::post('/lookup-taxcode-api', [\App\Http\Controllers\TaxCodeLookupController::class, 'taxcodeApi'])->name('lookup.taxcode.api');
+
+Route::get('/tools/qr-payment', function () {
+    return view('tools.qr-payment');
+})->name('qr-payment');
+Route::get('/tools/qr-payment', [QRPaymentController::class, 'index'])->name('qr-payment');
+Route::post('/tools/qr-payment-create', [QRPaymentController::class, 'create'])->name('qr-payment.create');
+// Kích hoạt Office
+Route::get('/cong-cu/kich-hoat-office-mien-phi', function () {
+    return view('tools.office-activate');
+})->name('tool.office_activate');
+
+// Tắt/bật firewall
+Route::get('/cong-cu/bat-tat-tuong-lua-nhanh-chong', function () {
+    return view('tools.firewall-toggle');
+})->name('tool.firewall_toggle');
+
+
 
 Route::get('/test-500', function () {
     return redirect()->route('route.khong.ton.tai');

@@ -8,7 +8,7 @@
     {{-- Thêm thẻ meta description - Rất quan trọng cho SEO --}}
     <meta name="description"
         content="@yield('description', 'Khám phá các công cụ AI, hướng dẫn lập trình và tài nguyên hữu ích để nâng cao hiệu suất công việc và phát triển kỹ năng trong thế giới số.')">
-
+<meta name='dmca-site-verification' content='czZUbzdtTFFXREU5eDN0d1BCZmRuQT090' />
     <link rel="stylesheet" href="/assets/css/font-inter.css">
 
     <link rel="icon" href="{{ asset('assets/images/logo_tron.png') }}" type="image/x-icon" />
@@ -112,7 +112,7 @@
         <header
             class="custom-shadow bg-white/30 backdrop-blur-xl fixed top-4 left-1/2 -translate-x-1/2 w-11/12 max-w-6xl z-50 rounded-3xl border border-white/50 transition-all duration-300 py-4">
             <div class="container mx-auto px-6 flex justify-between items-center">
-                <a href="{{ route('login') }}" class="text-2xl font-bold text-gray-900">
+                <a href="{{ route('home') }}" class="text-2xl font-bold text-gray-900">
                     <img src="{{ asset('assets/images/logo.png') }}" alt="MinhTrietEras" class="h-10 w-auto">
                 </a>
                 <nav class="hidden md:flex items-center space-x-2">
@@ -139,37 +139,9 @@
                                 class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.tutorials') }}</span>
                         </div>
                     </a>
-                    <a href="{{ route('posts.by_category', 'cong-cu') }}"
-                        class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1">
-                        <div
-                            class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300">
-                        </div>
-                        <div
-                            class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300">
-                            <span
-                                class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.tools') }}</span>
-                        </div>
-                    </a>
-                    <a href="{{ route('projects') }}"
-                        class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1">
-                        <div
-                            class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300">
-                        </div>
-                        <div
-                            class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300">
-                            <span class="font-medium text-gray-800 group-hover:text-gray-900">Dự án</span></div>
-                    </a>
-                    <a href="{{ route('portfolio') }}"
-                        class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1">
-                        <div
-                            class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300">
-                        </div>
-                        <div
-                            class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300">
-                            <span
-                                class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.portfolio') }}</span>
-                        </div>
-                    </a>
+
+
+
                     <a href="{{ route('resource') }}"
                         class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1">
                         <div
@@ -181,6 +153,68 @@
                                 class="font-medium text-gray-800 group-hover:text-gray-900">{{ __('layout.download') }}</span>
                         </div>
                     </a>
+                    <div x-data="{ open: false }" class="relative">
+                        <button @mouseenter="open = true" @mouseleave="open = false" @click="open = !open"
+                            class="mouse-track-gradient group relative transition-all duration-300 hover:-translate-y-1 focus:outline-none"
+                            type="button">
+                            <div
+                                class="glow-effect absolute -inset-0.5 rounded-xl blur-sm opacity-0 group-hover:opacity-75 transition duration-300">
+                            </div>
+                            <div
+                                class="relative px-4 py-2 bg-transparent rounded-xl border border-transparent group-hover:bg-white/50 group-hover:border-white/50 transition-all duration-300 flex items-center gap-1">
+                                <span class="font-medium text-gray-800 group-hover:text-gray-900">Công cụ</span>
+                                <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180"
+                                    fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </button>
+                        <div x-show="open" @mouseenter="open = true" @mouseleave="open = false"
+                            @click.away="open = false" x-transition:enter="transition ease-out duration-150"
+                            x-transition:enter-start="opacity-0 -translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-100"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 -translate-y-2" {{-- Đã thay đổi w-[420px] hoặc
+                            min-w-[300px] thành w-max để tự động co giãn theo nội dung --}}
+                            class="absolute left-0 top-full w-max bg-white/90 shadow-xl rounded-2xl mt-2 border border-white/30 z-50 backdrop-blur-md"
+                            style="display: none;">
+                            <div class="py-4 px-6 grid grid-cols-1 gap-2">
+                                <div>
+                                    <div class="text-xs font-bold text-gray-400 uppercase mb-2 ">Tài chính & Tra cứu
+                                    </div>
+                                    <a href="{{ route('lookup.taxcode') }}"
+                                        class="flex items-center gap-2 px-2 py-2 rounded hover:bg-gray-100 transition ">
+                                        <span>🔎</span>
+                                        <span>Tra cứu MST Doanh nghiệp</span>
+                                    </a>
+                                    <a href="{{ route('qr-payment') }}"
+                                        class="flex items-center gap-2 px-2 py-2 rounded hover:bg-gray-100 transition">
+                                        <span>💸</span>
+                                        <span>Tạo mã QR chuyển khoản</span>
+                                    </a>
+
+                                </div>
+<div class="mt-3">
+    <div class="text-xs font-bold text-gray-400 uppercase mb-2">Công cụ hỗ trợ Windows & Office</div>
+
+    <a href="{{ route('tool.office_activate') }}"
+        class="flex items-center gap-2 px-2 py-2 rounded hover:bg-gray-100 transition">
+        <span>🛠️</span>
+        <span>Kích hoạt Office miễn phí vĩnh viễn</span>
+    </a>
+
+    <a href="{{ route('tool.firewall_toggle') }}"
+        class="flex items-center gap-2 px-2 py-2 rounded hover:bg-gray-100 transition">
+        <span>🛡️</span>
+        <span>Tắt hoặc bật tường lửa Windows (Windows Firewall)</span>
+    </a>
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+
 
                     {{-- Menu ngôn ngữ bây giờ được điều khiển bởi biến "langMenuOpen" từ div cha --}}
                     {{-- và không còn x-data của riêng nó nữa --}}
@@ -258,13 +292,16 @@
     <footer id="scroll-footer"
         class="custom-shadow bg-white/30 backdrop-blur-xl text-gray-800 w-11/12 max-w-6xl mx-auto my-4 z-50 rounded-3xl transition-all duration-500 border border-white/50 opacity-0 pointer-events-none">
         <div class="max-w-6xl mx-auto px-6 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
                 <div class="flex flex-col items-center md:items-start">
                     <a href="#" class="mb-4">
                         <img src="{{ asset('assets/images/logo.png') }}" alt="MinhTrietEras"
                             class="h-10 w-auto mx-auto md:mx-0">
                     </a>
                     <p class="text-gray-600 text-sm">{{ __('layout.footer_brand_slogan') }}</p>
+                        <div class="my-2">
+<a href="//www.dmca.com/Protection/Status.aspx?ID=ecf418c8-5d24-4d31-b3df-fb591b3afe14" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=ecf418c8-5d24-4d31-b3df-fb591b3afe14"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
+    </div>
                 </div>
 
                 <div>
@@ -301,6 +338,7 @@
                             <a href="mailto:contact@leminhtriet.com"
                                 class="hover:text-indigo-600 transition-colors">contact@leminhtriet.com</a>
                         </li>
+
                     </ul>
                 </div>
 
@@ -338,11 +376,35 @@
                         </a>
                     </div>
                 </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Về chúng tôi</h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-center justify-center md:justify-start">
+
+                            <a href="{{ route('privacy') }}" class="hover:text-indigo-600 transition-colors">
+                                {{ __('layout.footer_privacy') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('projects') }}" class="hover:text-indigo-600 transition-colors">
+                                {{ __('layout.footer_projects') }}
+                            </a>
+                        </li>
+                                                <li>
+                            <a href="{{ route('portfolio') }}" class="hover:text-indigo-600 transition-colors">
+                                {{ __('layout.footer_portfolio') }}
+                            </a>
+                        </li>
+                        <!-- Nếu muốn bổ sung thêm dòng giới thiệu, về dự án,... thêm ở đây -->
+                    </ul>
+                </div>
             </div>
             <div class="mt-8 pt-6 border-t border-gray-900/10 text-center text-xs text-gray-500">
                 <p>{{ __('layout.footer_copyright') }}</p>
             </div>
         </div>
+        <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
+
     </footer>
 
     <script src="{{ asset(path: 'assets/js/liquid_glass.js') }}"></script>

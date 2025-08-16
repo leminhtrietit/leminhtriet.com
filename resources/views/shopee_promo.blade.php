@@ -3,7 +3,7 @@
 @section('title', 'Ưu đãi độc quyền Shopee VIP & ChatGPT Plus')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
     <div class="bg-white/50 backdrop-blur-md p-8 md:p-12 rounded-2xl shadow-lg border border-white/30 text-center custom-shadow">
 
         {{-- Phần Header của thông báo --}}

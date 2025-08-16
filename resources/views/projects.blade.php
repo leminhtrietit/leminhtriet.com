@@ -3,7 +3,7 @@
 @section('title', 'Các dự án của MinhTrietEras')
 
 @section('content')
-<div class="max-w-6xl mx-auto px-6 py-12">
+<div class="max-w-6xl mx-auto px-6 py-4">
     <div class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-white/20">
 
         {{-- Header của trang --}}
