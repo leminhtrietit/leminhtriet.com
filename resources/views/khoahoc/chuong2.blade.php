@@ -1,4 +1,4 @@
-@extends('application')
+@extends('layouts.app') 
 
 @section('title', 'Chương 2: Nghệ thuật Tối ưu hóa Prompt')
 

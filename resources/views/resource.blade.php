@@ -1,4 +1,4 @@
-@extends('application')
+@extends( 'layouts.app')
 
 @section('title', 'Tài nguyên & Tải về')
 

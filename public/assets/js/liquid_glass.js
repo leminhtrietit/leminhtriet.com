@@ -50,12 +50,7 @@
                     el.style.setProperty('--y', `${y}px`);
                 });
             });
-
-          
-
-           
             // Gọi các hàm để tải dữ liệu
-           
         }
     
     

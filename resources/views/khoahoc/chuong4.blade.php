@@ -1,4 +1,4 @@
-@extends('application')
+@extends('layouts.app') 
 
 @section('title', 'Chương 4: Các ứng dụng AI trong Văn phòng')
 

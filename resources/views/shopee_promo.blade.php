@@ -1,4 +1,4 @@
-@extends('application')
+@extends( 'layouts.app')
 
 @section('title', 'Ưu đãi độc quyền Shopee VIP & ChatGPT Plus')
 

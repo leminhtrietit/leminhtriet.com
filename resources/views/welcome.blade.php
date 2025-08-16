@@ -1,4 +1,4 @@
-@extends('application')  {{-- Sử dụng layout chính --}}
+@extends( 'layouts.app')
 
 {{-- Title mới, ngắn gọn và tập trung vào từ khóa --}}
 @section('title', 'Trang chủ')

@@ -1,4 +1,4 @@
-@extends('application')
+@extends('layouts.app') 
 
 @section('title', 'Chương 5: Cá nhân hóa Lịch trình và Tối ưu hóa Cuộc sống với AI')
 

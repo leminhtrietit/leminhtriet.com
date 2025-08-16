@@ -1,9 +1,9 @@
 
 
 
-@extends('application')  {{-- Use the new layout --}}
+@extends('layouts.app') 
 
-@section('title', 'Tutorials - MinhTrietEras') {{-- Set the title --}}
+@section('title', 'Tutorials - MinhTrietEras')
 
 @section('content')
 <div class="max-w-6xl mx-auto px-6 py-12">

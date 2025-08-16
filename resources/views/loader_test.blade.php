@@ -1,4 +1,4 @@
-@extends('application')
+@extends( 'layouts.app')
 
 @section('title', 'Loader Test')
 

@@ -1,6 +1,6 @@
-@extends('application')  {{-- Kế thừa từ layout chính của bạn --}}
+@extends('layouts.app') 
 
-@section('title', $post->title) {{-- Đặt tiêu đề cho trang dựa trên tiêu đề bài viết --}}
+@section('title', $post->title)
 
 @section('content')
 <div class="max-w-6xl mx-auto px-6 py-12">
